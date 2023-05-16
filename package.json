@@ -1,0 +1,25 @@
+{
+  "name": "nadi-docs",
+  "version": "1.0.0",
+  "description": "Nadi Official Documentation",
+  "repository": "https://github.com/cleaniquecoders/nadi-docs",
+  "author": "Nasrul Hazim Bin Mohamad <nasrulhazim.m@gmail.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@vuepress/plugin-pwa": "^1.9.9",
+    "vuepress": "^1.9.9"
+  },
+  "scripts": {
+    "start": "npm run docs:dev",
+    "docs:build": "vuepress build",
+    "docs:dev": "vuepress dev"
+  },
+  "resolutions": {
+    "webpack-dev-middleware": "3.6.0",
+    "watchpack": "1.6.1"
+  },
+  "overrides": {
+    "webpack-dev-middleware": "3.6.0",
+    "watchpack": "1.6.1"
+  }
+}
