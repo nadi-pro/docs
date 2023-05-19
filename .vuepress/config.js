@@ -1,7 +1,7 @@
 module.exports = {
   title: "Nadi",
   description: "A simple issue tracker for monitoring your application crashes",
-  base: "/docs/",
+  base: "/",
 
   plugins: [
     [
