@@ -2,7 +2,7 @@
   "name": "nadi-docs",
   "version": "1.0.0",
   "description": "Nadi Official Documentation",
-  "repository": "https://github.com/cleaniquecoders/nadi-docs",
+  "repository": "https://github.com/nadi-pro/docs",
   "author": "Nasrul Hazim Bin Mohamad <nasrulhazim.m@gmail.com>",
   "license": "MIT",
   "dependencies": {
