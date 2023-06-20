@@ -45,4 +45,4 @@ php artisan nadi:verify
 
 ## Bug Reports
 
-If you discover a bug in Nadi, please open an issue on the [Nadi issues GitHub repository](https://github.com/cleaniquecoders/nadi-issues).
+If you discover a bug in Nadi, please open an issue on the [Nadi issues GitHub repository](https://github.com/nadi-pro/issues).
