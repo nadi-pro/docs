@@ -42,7 +42,7 @@ The following are the components involved in Nadi:
 
 | Component                  | Description                                                                 |
 |----------------------------|-----------------------------------------------------------------------------|
-| Nadi's Client              | Responsible for capture events to be monitor such as Exception, Slow Query. |
+| Nadi Client              | Responsible for capture events to be monitor such as Exception, Slow Query. |
 | Nadi Shipper               | Responsible to read logs that not yet send to the Nadi Collector            |
 | Nadi Collector             | Responsible to receive logs from Shipper and store it in the database       |
 
