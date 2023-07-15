@@ -50,7 +50,7 @@ module.exports = {
     sidebarDepth: 0,
 
     nav: [
-      { text: "Home", link: "https://nadi.pro" },
+      { text: "Home", link: "https://nadi.cleaniquecoders.com" },
       {
         text: "Version",
         link: "/",
