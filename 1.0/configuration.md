@@ -13,9 +13,20 @@ Then you need to create Application Token. Click [here](https://nadi.cleaniqueco
 
 Add the following keys in your `.env`
 
+Use the following keys for Nadi Laravel v1.7.2 and above.
+
 ```bash
-NADI_ENDPOINT="https://nadi.cleaniquecoders.com/api"
-NADI_DRIVER=http
 NADI_API_KEY=api-key
 NADI_APP_KEY=application-key
 ```
+
+::: warning
+
+For Nadi Laravel v1.7.1 and below:
+
+```bash
+NADI_KEY=api-key
+NADI_TOKEN=application-key
+```
+
+:::
