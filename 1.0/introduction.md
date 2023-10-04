@@ -71,4 +71,4 @@ Following are the incoming Runtime & Framework that will be support in Nadi:
 | NodeJs  | NextJs      |
 |         | NuxtJs      |
 
-For contribution / collaboration, do contact <a href="mailto:nasrul@cleaniquecoders.com?subject=Working with Nadi&body=Hi, I would like to participate in the contribution in Nadi. Following are my details: ">nadi@cleaniquecoders.com</a>
+For contribution / collaboration, do contact <a href="mailto:tech@nadi.pro?subject=Working with Nadi&body=Hi, I would like to participate in the contribution in Nadi. Following are my details: ">tech@nadi.pro</a>

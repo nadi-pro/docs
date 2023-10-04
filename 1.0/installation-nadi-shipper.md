@@ -52,7 +52,7 @@ Then update the respective values:
 
 nadi:
   # Nadi API Endpoint
-  endpoint: http://nadi.cleaniquecoders.com/api/
+  endpoint: https://nadi.pro/api/
 
   # Accept Header
   accept: application/vnd.nadi.v1+json

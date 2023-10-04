@@ -23,7 +23,7 @@ Nadi has a few requirements you should be aware of before installing.
 ### Laravel
 
 ```bash
-composer require cleaniquecoders/nadi-laravel
+composer require nadi-pro/nadi-laravel
 php artisan nadi:install
 ```
 

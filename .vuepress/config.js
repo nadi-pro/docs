@@ -1,6 +1,6 @@
 module.exports = {
   title: "Nadi",
-  description: "A simple issue tracker for monitoring your application crashes",
+  description: "Crash Care Companion",
   base: "/",
 
   plugins: [
@@ -42,7 +42,7 @@ module.exports = {
   ],
 
   themeConfig: {
-    logo: "/assets/img/logo.jpg",
+    logo: "/assets/logo.svg",
     displayAllHeaders: false,
     activeHeaderLinks: false,
     searchPlaceholder: "Search...",
@@ -50,7 +50,7 @@ module.exports = {
     sidebarDepth: 0,
 
     nav: [
-      { text: "Home", link: "https://nadi.cleaniquecoders.com" },
+      { text: "Home", link: "https://nadi.pro" },
       {
         text: "Version",
         link: "/",
