@@ -78,3 +78,31 @@ nadi:
   # Set maximum time before timeout. Default is 1 minute.
   timeout: 1m
 ```
+
+#### Shipping Multiple Applications Log in One Server
+
+In case of monitoring multiple applications in one server, you will need to create custom `nadi.yaml` for each of the application.
+
+You may use Supervisord to run multiple workers to monitor your applications in a single server.
+
+Sample supervisord setup:
+
+```ini
+[program:shipper-app1]
+process_name=%(program_name)s
+command=/usr/local/bin/shipper --config=/path/to/shipper/config/nadi-app1.yaml --record
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile=/var/log/nadi/nadi-app1.log
+stopwaitsecs=3600
+
+[program:shipper-app2]
+process_name=%(program_name)s
+command=/usr/local/bin/shipper --config=/path/to/shipper/config/nadi-app2.yaml --record
+autostart=true
+autorestart=true
+redirect_stderr=true
+stdout_logfile=/var/log/nadi/nadi-app2.log
+stopwaitsecs=3600
+```
