@@ -13,12 +13,12 @@ Nadi has a few requirements you should be aware of before installing.
 
 - Composer
 - PHP 7 and above.
-- Laravel 5+
+- [Laravel](#laravel)
+- [WordPress](#wordpress)
 - Symfony (coming soon)
 - CakePHP (coming soon)
 - CodeIgniter (coming soon)
 - Yii (coming soon)
-- WordPress (coming soon)
 
 ### Laravel
 
@@ -28,3 +28,13 @@ php artisan nadi:install
 ```
 
 After running this command, continue to [Nadi Shipper](/1.0/installation-nadi-shipper.html) installation.
+
+### WordPress
+
+You can install the plugin by download it [here](https://github.com/nadi-pro/nadi-wordpress/releases/latest) and upload in the WordPress > Plugin section.
+
+Then you can go to Nadi menu to set the API Key and Application Key.
+
+To test the settings, simply click on **Test Connection** after save the settings.
+
+> At the moment only HTTP Transporter is test and supported.
