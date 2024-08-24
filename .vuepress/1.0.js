@@ -1,12 +1,12 @@
 module.exports = [
   {
     title: "Getting Started",
-    collapsable: false,
+    collapsable: true,
     children: ["introduction"]
   },
   {
     title: "Installation",
-    collapsable: false,
+    collapsable: true,
     children: [
       "installation",
       "installation-nadi-api-app-key",
@@ -14,6 +14,13 @@ module.exports = [
       "installation-nadi-shipper",
       "installation-nadi-testing",
       "installation-nadi-service"
+    ]
+  },
+  {
+    title: "Configuration",
+    collapsable: true,
+    children: [
+      "configuration-nadi-sampling"
     ]
   }
 ];

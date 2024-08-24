@@ -1,4 +1,4 @@
-# Nadi Sampling
+# Sampling
 
 [[toc]]
 
