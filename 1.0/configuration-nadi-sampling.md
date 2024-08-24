@@ -86,9 +86,9 @@ To create a custom sampling strategy, follow these steps:
 
 1. Create a Custom Sampling Class
 2. Register the Custom Sampling Strategy
-3. Configure the Strategy in the NADI Config
+3. Configure the Strategy
 
-### Step 1: Create a Custom Sampling Class
+#### Step 1: Create a Custom Sampling Class
 
 First, create a new class that implements the `Contract` and uses the `Config` class to access the necessary configuration parameters.
 
@@ -118,7 +118,7 @@ class CustomTimeBasedSampling implements Contract
 }
 ```
 
-### Step 2: Register the Custom Sampling Strategy
+#### Step 2: Register the Custom Sampling Strategy
 
 Next, you need to register your custom sampling strategy in the `sampling` section of your NADI configuration file.
 
@@ -147,7 +147,7 @@ return [
 ];
 ```
 
-### Step 3: Configure the Strategy in the NADI Config
+#### Step 3: Configure the Strategy
 
 Now, set the environment variable `NADI_SAMPLING_STRATEGY` to your custom strategy, or set it directly in the config file:
 
