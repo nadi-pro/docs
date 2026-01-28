@@ -11,8 +11,18 @@ export default withMermaid(defineConfig({
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap', rel: 'stylesheet' }],
     ['meta', { name: 'theme-color', content: '#008BFF' }],
-    ['meta', { name: 'og:type', content: 'website' }],
-    ['meta', { name: 'og:site_name', content: 'Nadi — Your App\'s Nervous System' }],
+    // Open Graph
+    ['meta', { property: 'og:type', content: 'website' }],
+    ['meta', { property: 'og:site_name', content: 'Nadi' }],
+    ['meta', { property: 'og:title', content: 'Nadi — Your App\'s Nervous System' }],
+    ['meta', { property: 'og:description', content: 'Errors, traces, real user monitoring unified in one dashboard. 5-minute setup for PHP, JavaScript, and more.' }],
+    ['meta', { property: 'og:image', content: 'https://docs.nadi.pro/og-image.png' }],
+    ['meta', { property: 'og:url', content: 'https://docs.nadi.pro' }],
+    // Twitter Card
+    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
+    ['meta', { name: 'twitter:title', content: 'Nadi — Your App\'s Nervous System' }],
+    ['meta', { name: 'twitter:description', content: 'Errors, traces, real user monitoring unified in one dashboard. 5-minute setup for PHP, JavaScript, and more.' }],
+    ['meta', { name: 'twitter:image', content: 'https://docs.nadi.pro/og-image.png' }],
   ],
 
   themeConfig: {
