@@ -3,49 +3,21 @@ defineProps<{
   type?: 'required' | 'optional' | 'new' | 'deprecated' | 'coming-soon'
   version?: string
 }>()
+
+const typeClasses: Record<string, string> = {
+  required: 'bg-red-500/20 text-red-600 dark:text-red-400',
+  optional: 'bg-violet-500/20 text-violet-600 dark:text-violet-400',
+  new: 'bg-green-500/20 text-green-600 dark:text-green-400',
+  deprecated: 'bg-orange-500/20 text-orange-600 dark:text-orange-400',
+  'coming-soon': 'bg-blue-500/20 text-blue-600 dark:text-blue-400',
+}
 </script>
 
 <template>
-  <span class="version-badge" :class="type || 'required'">
+  <span
+    class="inline-flex items-center px-1.5 py-0.5 text-[0.65rem] font-medium rounded ml-1.5 align-middle leading-normal"
+    :class="typeClasses[type || 'required']"
+  >
     <slot>{{ version }}</slot>
   </span>
 </template>
-
-<style scoped>
-.version-badge {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.0625rem 0.375rem;
-  font-size: 0.65rem;
-  font-weight: 500;
-  border-radius: 4px;
-  margin-left: 0.375rem;
-  vertical-align: middle;
-  line-height: 1.4;
-}
-
-.version-badge.required {
-  background-color: rgba(239, 68, 68, 0.2);
-  color: #dc2626;
-}
-
-.version-badge.optional {
-  background-color: rgba(139, 92, 246, 0.2);
-  color: #7c3aed;
-}
-
-.version-badge.new {
-  background-color: rgba(34, 197, 94, 0.2);
-  color: #16a34a;
-}
-
-.version-badge.deprecated {
-  background-color: rgba(249, 115, 22, 0.2);
-  color: #ea580c;
-}
-
-.version-badge.coming-soon {
-  background-color: rgba(59, 130, 246, 0.2);
-  color: #2563eb;
-}
-</style>

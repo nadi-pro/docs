@@ -3,60 +3,24 @@ defineProps<{
   method: 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE'
   path: string
 }>()
+
+const methodClasses: Record<string, string> = {
+  get: 'bg-green-500/15 text-green-500',
+  post: 'bg-blue-500/15 text-blue-500',
+  put: 'bg-orange-500/15 text-orange-500',
+  patch: 'bg-orange-500/15 text-orange-500',
+  delete: 'bg-red-500/15 text-red-500',
+}
 </script>
 
 <template>
-  <div class="api-endpoint">
-    <span class="method" :class="method.toLowerCase()">{{ method }}</span>
-    <code class="path">{{ path }}</code>
+  <div class="flex items-center gap-3 px-4 py-3 bg-gray-100 dark:bg-gray-800 rounded-lg my-4 font-mono text-sm">
+    <span
+      class="px-2 py-1 text-xs font-semibold rounded uppercase"
+      :class="methodClasses[method.toLowerCase()]"
+    >
+      {{ method }}
+    </span>
+    <code class="text-gray-900 dark:text-gray-100 bg-transparent text-inherit">{{ path }}</code>
   </div>
 </template>
-
-<style scoped>
-.api-endpoint {
-  display: flex;
-  align-items: center;
-  gap: 0.75rem;
-  padding: 0.75rem 1rem;
-  background-color: var(--vp-c-bg-soft);
-  border-radius: 8px;
-  margin: 1rem 0;
-  font-family: var(--vp-font-family-mono);
-  font-size: 0.875rem;
-}
-
-.method {
-  padding: 0.25rem 0.5rem;
-  font-size: 0.75rem;
-  font-weight: 600;
-  border-radius: 4px;
-  text-transform: uppercase;
-}
-
-.method.get {
-  background-color: rgba(34, 197, 94, 0.15);
-  color: #22c55e;
-}
-
-.method.post {
-  background-color: rgba(59, 130, 246, 0.15);
-  color: #3b82f6;
-}
-
-.method.put,
-.method.patch {
-  background-color: rgba(249, 115, 22, 0.15);
-  color: #f97316;
-}
-
-.method.delete {
-  background-color: rgba(239, 68, 68, 0.15);
-  color: #ef4444;
-}
-
-.path {
-  color: var(--vp-c-text-1);
-  background: none;
-  font-size: inherit;
-}
-</style>
