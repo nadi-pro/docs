@@ -28,11 +28,13 @@ To get started with Nadi, follow the [installation](/1.0/installation.html) guid
 
 The following diagram show the workflow of how Nadi works.
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Application    │     │    Shipper      │     │     Nadi        │
-│  (+ SDK)        │────▶│    Agent        │────▶│   Collector     │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
+```mermaid
+flowchart LR
+    app["Application<br/>(+ SDK)"]
+    shipper["Shipper<br/>Agent"]
+    collector["Nadi<br/>Collector"]
+
+    app --> shipper --> collector
 ```
 
 1. The `Application` that installed with Nadi's Client will capture events and store it to the log files.

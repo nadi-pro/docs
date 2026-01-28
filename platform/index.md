@@ -22,29 +22,22 @@ The Nadi platform provides a comprehensive dashboard for monitoring, analyzing, 
 
 ## Dashboard Overview
 
-```
-┌─────────────────────────────────────────────────────────────────┐
-│  Nadi Dashboard                                   [User ▼]     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  [Issues] [Performance] [Alerts] [Settings]                    │
-│                                                                 │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │  Error Trends                              Last 24 Hours │  │
-│  │  ████████████████████████████████████████████████████    │  │
-│  │        Today: 142 errors | Week: 1,234 errors           │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                 │
-│  Recent Issues                                                  │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │ ● TypeError: Cannot read property 'id' of undefined     │  │
-│  │   app/services/UserService.php:45 | 23 events | 12 users│  │
-│  ├──────────────────────────────────────────────────────────┤  │
-│  │ ● ConnectionError: Database connection failed           │  │
-│  │   app/database/Connection.php:12 | 5 events | 3 users  │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
+```mermaid
+block-beta
+    columns 1
+    block:header
+        title["Nadi Dashboard"]
+    end
+    block:nav
+        Issues Performance Alerts Settings
+    end
+    block:trends["Error Trends (Last 24 Hours)"]
+        stats["Today: 142 errors | Week: 1,234 errors"]
+    end
+    block:issues["Recent Issues"]
+        issue1["TypeError: Cannot read property 'id'<br/>app/services/UserService.php:45"]
+        issue2["ConnectionError: Database connection failed<br/>app/database/Connection.php:12"]
+    end
 ```
 
 ## Platform Sections

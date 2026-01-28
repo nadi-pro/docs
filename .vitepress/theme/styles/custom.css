@@ -272,3 +272,214 @@
 .vp-doc th {
   padding: 0.75rem 1rem;
 }
+
+/* ==========================================
+   Mermaid Diagram Styles - Light/Dark Mode
+   ========================================== */
+
+.mermaid {
+  margin: 1.5rem 0;
+  text-align: center;
+  background: transparent !important;
+}
+
+/* ------------------------------------------
+   LIGHT MODE (Default)
+   ------------------------------------------ */
+
+/* All text elements */
+.mermaid text,
+.mermaid .nodeLabel,
+.mermaid .edgeLabel,
+.mermaid .label,
+.mermaid .labelText,
+.mermaid .cluster-label,
+.mermaid tspan,
+.mermaid .messageText,
+.mermaid .labelText,
+.mermaid .loopText,
+.mermaid .noteText,
+.mermaid .titleText,
+.mermaid .sectionTitle,
+.mermaid .statediagram-state .state-title {
+  fill: #1e293b !important;
+  color: #1e293b !important;
+}
+
+/* Span elements inside labels */
+.mermaid span,
+.mermaid .nodeLabel span,
+.mermaid .edgeLabel span,
+.mermaid .cluster-label span,
+.mermaid foreignObject span,
+.mermaid foreignObject div {
+  color: #1e293b !important;
+}
+
+/* Node shapes */
+.mermaid .node rect,
+.mermaid .node circle,
+.mermaid .node ellipse,
+.mermaid .node polygon,
+.mermaid .node path,
+.mermaid .flowchart-link {
+  fill: #dbeafe !important;
+  stroke: #0284c7 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Edge/arrow paths */
+.mermaid .edgePath .path,
+.mermaid .flowchart-link,
+.mermaid .transition,
+.mermaid path.path {
+  stroke: #64748b !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Arrowheads */
+.mermaid .arrowheadPath,
+.mermaid marker path,
+.mermaid .marker {
+  fill: #64748b !important;
+  stroke: #64748b !important;
+}
+
+/* Edge label background */
+.mermaid .edgeLabel rect,
+.mermaid .labelBkg {
+  fill: #ffffff !important;
+  stroke: none !important;
+}
+
+/* Subgraph/cluster */
+.mermaid .cluster rect,
+.mermaid .cluster-label rect {
+  fill: #f1f5f9 !important;
+  stroke: #cbd5e1 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* State diagram */
+.mermaid .statediagram-state rect.divider,
+.mermaid .statediagram-state rect {
+  fill: #dbeafe !important;
+  stroke: #0284c7 !important;
+}
+
+.mermaid .statediagram-cluster rect {
+  fill: #f1f5f9 !important;
+  stroke: #cbd5e1 !important;
+}
+
+.mermaid .state-start,
+.mermaid .state-end {
+  fill: #0284c7 !important;
+  stroke: #0284c7 !important;
+}
+
+/* Block diagram */
+.mermaid .block {
+  fill: #dbeafe !important;
+  stroke: #0284c7 !important;
+}
+
+/* ------------------------------------------
+   DARK MODE
+   ------------------------------------------ */
+
+/* All text elements */
+.dark .mermaid text,
+.dark .mermaid .nodeLabel,
+.dark .mermaid .edgeLabel,
+.dark .mermaid .label,
+.dark .mermaid .labelText,
+.dark .mermaid .cluster-label,
+.dark .mermaid tspan,
+.dark .mermaid .messageText,
+.dark .mermaid .labelText,
+.dark .mermaid .loopText,
+.dark .mermaid .noteText,
+.dark .mermaid .titleText,
+.dark .mermaid .sectionTitle,
+.dark .mermaid .statediagram-state .state-title {
+  fill: #e2e8f0 !important;
+  color: #e2e8f0 !important;
+}
+
+/* Span elements inside labels */
+.dark .mermaid span,
+.dark .mermaid .nodeLabel span,
+.dark .mermaid .edgeLabel span,
+.dark .mermaid .cluster-label span,
+.dark .mermaid foreignObject span,
+.dark .mermaid foreignObject div {
+  color: #e2e8f0 !important;
+}
+
+/* Node shapes */
+.dark .mermaid .node rect,
+.dark .mermaid .node circle,
+.dark .mermaid .node ellipse,
+.dark .mermaid .node polygon,
+.dark .mermaid .node path {
+  fill: #1e3a5f !important;
+  stroke: #38bdf8 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Edge/arrow paths */
+.dark .mermaid .edgePath .path,
+.dark .mermaid .flowchart-link,
+.dark .mermaid .transition,
+.dark .mermaid path.path {
+  stroke: #94a3b8 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* Arrowheads */
+.dark .mermaid .arrowheadPath,
+.dark .mermaid marker path,
+.dark .mermaid .marker {
+  fill: #94a3b8 !important;
+  stroke: #94a3b8 !important;
+}
+
+/* Edge label background */
+.dark .mermaid .edgeLabel rect,
+.dark .mermaid .labelBkg {
+  fill: #1e293b !important;
+  stroke: none !important;
+}
+
+/* Subgraph/cluster */
+.dark .mermaid .cluster rect,
+.dark .mermaid .cluster-label rect {
+  fill: #0f172a !important;
+  stroke: #475569 !important;
+  stroke-width: 1.5px !important;
+}
+
+/* State diagram */
+.dark .mermaid .statediagram-state rect.divider,
+.dark .mermaid .statediagram-state rect {
+  fill: #1e3a5f !important;
+  stroke: #38bdf8 !important;
+}
+
+.dark .mermaid .statediagram-cluster rect {
+  fill: #0f172a !important;
+  stroke: #475569 !important;
+}
+
+.dark .mermaid .state-start,
+.dark .mermaid .state-end {
+  fill: #38bdf8 !important;
+  stroke: #38bdf8 !important;
+}
+
+/* Block diagram */
+.dark .mermaid .block {
+  fill: #1e3a5f !important;
+  stroke: #38bdf8 !important;
+}

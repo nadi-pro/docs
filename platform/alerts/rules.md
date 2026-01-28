@@ -11,37 +11,15 @@ Configure when and how you receive notifications.
 
 ### Rule Builder
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Alert Rule                                                 │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  Name: [ Production Error Alerts                  ]        │
-│                                                             │
-│  ─── WHEN ───                                              │
-│                                                             │
-│  Trigger:                                                   │
-│  [ A new issue is created                    ▼ ]           │
-│                                                             │
-│  ─── CONDITIONS ───                                        │
-│                                                             │
-│  Project:      [ My Production App           ▼ ]           │
-│  Environment:  [ production                  ▼ ]           │
-│  Level:        [ error, fatal                ▼ ]           │
-│                                                             │
-│  ─── ACTIONS ───                                           │
-│                                                             │
-│  Send to:      [ #prod-alerts (Slack)        ▼ ]           │
-│                [ Add another action + ]                    │
-│                                                             │
-│  ─── SCHEDULE ───                                          │
-│                                                             │
-│  Active:       [ Always                      ▼ ]           │
-│                                                             │
-│  [ Save Rule ]                                             │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+| Section | Field | Value |
+|---------|-------|-------|
+| **Name** | | Production Error Alerts |
+| **When** | Trigger | A new issue is created |
+| **Conditions** | Project | My Production App |
+| | Environment | production |
+| | Level | error, fatal |
+| **Actions** | Send to | #prod-alerts (Slack) |
+| **Schedule** | Active | Always |
 
 ## Trigger Types
 

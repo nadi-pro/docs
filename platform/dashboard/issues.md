@@ -43,16 +43,13 @@ TypeError: Cannot read property 'email' of undefined
 
 ### Status Workflow
 
-```
-┌────────────┐     ┌────────────┐     ┌────────────┐
-│ Unresolved │────▶│  Resolved  │────▶│ Regressed  │
-└────────────┘     └────────────┘     └────────────┘
-      │                  ▲                   │
-      │                  │                   │
-      ▼                  └───────────────────┘
-┌────────────┐
-│  Ignored   │
-└────────────┘
+```mermaid
+stateDiagram-v2
+    [*] --> Unresolved
+    Unresolved --> Resolved
+    Unresolved --> Ignored
+    Resolved --> Regressed : Error reoccurs
+    Regressed --> Resolved
 ```
 
 ### Resolving Issues

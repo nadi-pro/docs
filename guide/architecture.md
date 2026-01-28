@@ -6,28 +6,22 @@ Understanding how Nadi works helps you get the most out of error monitoring and 
 
 Nadi uses a three-component architecture designed for reliability and minimal performance impact:
 
-```
-┌────────────────────────────────────────────────────────────────────┐
-│                         Your Infrastructure                         │
-│                                                                    │
-│   ┌─────────────┐                           ┌─────────────┐       │
-│   │ Application │   writes logs to          │   Shipper   │       │
-│   │   + SDK     │ ──────────────────────▶   │   Agent     │       │
-│   └─────────────┘     /var/log/nadi         └──────┬──────┘       │
-│                                                     │              │
-└─────────────────────────────────────────────────────┼──────────────┘
-                                                      │
-                                            HTTPS POST│
-                                                      ▼
-┌────────────────────────────────────────────────────────────────────┐
-│                          Nadi Platform                              │
-│                                                                    │
-│   ┌─────────────┐     ┌─────────────┐     ┌─────────────┐        │
-│   │  Collector  │────▶│  Processor  │────▶│  Dashboard  │        │
-│   │   (API)     │     │  + Storage  │     │    (UI)     │        │
-│   └─────────────┘     └─────────────┘     └─────────────┘        │
-│                                                                    │
-└────────────────────────────────────────────────────────────────────┘
+```mermaid
+flowchart TB
+    subgraph infra["Your Infrastructure"]
+        app["Application + SDK"]
+        shipper["Shipper Agent"]
+        app -->|"writes logs"| shipper
+    end
+
+    subgraph platform["Nadi Platform"]
+        collector["Collector API"]
+        processor["Processor + Storage"]
+        dashboard["Dashboard UI"]
+        collector --> processor --> dashboard
+    end
+
+    shipper -->|"HTTPS"| collector
 ```
 
 ## Components
@@ -196,48 +190,42 @@ Nadi processes the event:
 
 ### Single Server
 
-```
-┌─────────────────────────────────────┐
-│            Web Server               │
-│                                     │
-│  ┌──────────┐    ┌──────────┐      │
-│  │   App    │───▶│ Shipper  │───────────▶ Nadi
-│  └──────────┘    └──────────┘      │
-│                                     │
-└─────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph server["Web Server"]
+        app["App"]
+        shipper["Shipper"]
+        app --> shipper
+    end
+    shipper --> nadi["Nadi"]
 ```
 
 ### Multiple Applications
 
-```
-┌─────────────────────────────────────┐
-│            Web Server               │
-│                                     │
-│  ┌──────────┐                      │
-│  │  App 1   │───┐                  │
-│  └──────────┘   │   ┌──────────┐   │
-│                 ├──▶│ Shipper  │───────────▶ Nadi
-│  ┌──────────┐   │   └──────────┘   │
-│  │  App 2   │───┘                  │
-│  └──────────┘                      │
-│                                     │
-└─────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph server["Web Server"]
+        app1["App 1"]
+        app2["App 2"]
+        shipper["Shipper"]
+        app1 --> shipper
+        app2 --> shipper
+    end
+    shipper --> nadi["Nadi"]
 ```
 
 ### Kubernetes
 
-```
-┌─────────────────────────────────────┐
-│              Pod                    │
-│                                     │
-│  ┌──────────┐    ┌──────────┐      │
-│  │   App    │───▶│ Shipper  │      │
-│  │Container │    │ Sidecar  │───────────▶ Nadi
-│  └──────────┘    └──────────┘      │
-│        │              │            │
-│        └──── Volume ──┘            │
-│                                     │
-└─────────────────────────────────────┘
+```mermaid
+flowchart LR
+    subgraph pod["Pod"]
+        app["App<br/>Container"]
+        shipper["Shipper<br/>Sidecar"]
+        volume[("Volume")]
+        app --> volume
+        volume --> shipper
+    end
+    shipper --> nadi["Nadi"]
 ```
 
 ## Next Steps

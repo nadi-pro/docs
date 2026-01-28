@@ -68,6 +68,37 @@ public/                    # Static assets (logo, favicon)
 - Sidebar navigation is configured in `.vitepress/config.ts`
 - Custom components available: `<SdkTabs>`, `<VersionBadge>`, `<ApiEndpoint>`, `<LegacyBanner>`
 
+## Diagrams
+
+Use **MermaidJS** for all diagrams. The site is configured with `vitepress-plugin-mermaid`.
+
+### Supported Diagram Types
+
+- `flowchart` - Data flow and architecture diagrams
+- `stateDiagram-v2` - State machine diagrams
+- `sequenceDiagram` - Sequence diagrams
+- `block-beta` - Block diagrams (for UI layouts)
+
+### Example Usage
+
+```markdown
+\`\`\`mermaid
+flowchart LR
+    app["Application"] --> shipper["Shipper"] --> nadi["Nadi"]
+\`\`\`
+```
+
+### Theme Configuration
+
+Mermaid diagrams automatically adapt to light/dark mode via CSS in `.vitepress/theme/styles/custom.css`:
+
+| Mode | Text Color | Node Fill | Node Border | Background |
+|------|------------|-----------|-------------|------------|
+| Light | #1e293b | #dbeafe | #0284c7 | #f1f5f9 |
+| Dark | #e2e8f0 | #1e3a5f | #38bdf8 | #0f172a |
+
+All diagram types are supported: flowchart, stateDiagram, block-beta, etc.
+
 ## Styling
 
 - Custom styles in `.vitepress/theme/styles/custom.css`

@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress'
+import { withMermaid } from 'vitepress-plugin-mermaid'
 
-export default defineConfig({
+export default withMermaid(defineConfig({
   title: 'Nadi',
   description: 'Your App\'s Nervous System — Errors, traces, real user monitoring unified in one dashboard. 5-minute setup for PHP, JavaScript, and more.',
 
@@ -221,5 +222,13 @@ export default defineConfig({
         }
       }
     }
+  },
+
+  mermaid: {
+    theme: 'neutral'
+  },
+
+  mermaidPlugin: {
+    class: 'mermaid'
   }
-})
+}))

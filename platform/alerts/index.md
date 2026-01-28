@@ -41,23 +41,12 @@ Go to **Settings** → **Integrations** and connect your preferred channel.
 
 Go to **Alerts** → **Rules** → **New Rule**:
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  New Alert Rule                                             │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│  When:     [ New Issue ]                                   │
-│                                                             │
-│  Project:  [ All Projects ▼ ]                              │
-│                                                             │
-│  Environment: [ Production ▼ ]                             │
-│                                                             │
-│  Notify:   [ #alerts (Slack) ▼ ]                          │
-│                                                             │
-│  [ Create Rule ]                                           │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+| Field | Value |
+|-------|-------|
+| **When** | New Issue |
+| **Project** | All Projects |
+| **Environment** | Production |
+| **Notify** | #alerts (Slack) |
 
 ### 3. Test the Alert
 

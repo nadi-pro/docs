@@ -116,35 +116,28 @@ Use the file transporter with Shipper for best reliability. This approach handle
 
 ## SDK Architecture
 
-```
-┌─────────────────────────────────────────────────┐
-│                  Your Application                │
-│                                                 │
-│   ┌─────────────┐    ┌─────────────────────┐   │
-│   │   SDK       │    │    Configuration     │   │
-│   │ ┌─────────┐ │    │ - API Key           │   │
-│   │ │Capture  │ │    │ - App Key           │   │
-│   │ │Events   │ │◀───│ - Sampling          │   │
-│   │ └────┬────┘ │    │ - Context           │   │
-│   │      │      │    └─────────────────────┘   │
-│   │      ▼      │                              │
-│   │ ┌─────────┐ │                              │
-│   │ │Enrich   │ │                              │
-│   │ │Context  │ │                              │
-│   │ └────┬────┘ │                              │
-│   │      │      │                              │
-│   │      ▼      │                              │
-│   │ ┌─────────┐ │    ┌─────────────────────┐   │
-│   │ │Transport│ │───▶│   /var/log/nadi     │   │
-│   │ └─────────┘ │    │   (Log Files)       │   │
-│   └─────────────┘    └─────────────────────┘   │
-│                                                 │
-└─────────────────────────────────────────────────┘
-                          │
-                          ▼
-               ┌─────────────────────┐
-               │      Shipper        │───────▶ Nadi
-               └─────────────────────┘
+```mermaid
+flowchart TB
+    subgraph app["Your Application"]
+        config["Configuration"]
+
+        subgraph sdk["SDK"]
+            capture["Capture Events"]
+            enrich["Enrich Context"]
+            transport["Transport"]
+            capture --> enrich --> transport
+        end
+
+        logs["Log Files"]
+
+        config --> capture
+        transport --> logs
+    end
+
+    shipper["Shipper"]
+    nadi["Nadi"]
+
+    logs --> shipper --> nadi
 ```
 
 ## Next Steps

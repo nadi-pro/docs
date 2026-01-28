@@ -30,20 +30,16 @@ Choose which channels can receive alerts:
 
 ### Standard Alert
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 🔴 New Error in my-app (production)                        │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│ TypeError: Cannot read property 'name' of undefined        │
-│                                                             │
-│ Location: app/services/UserService.php:45                  │
-│ Events: 23 | Users: 12                                     │
-│                                                             │
-│ [ View in Nadi ]  [ Resolve ]  [ Ignore ]                 │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+::: info Alert Preview
+**New Error in my-app (production)**
+
+`TypeError: Cannot read property 'name' of undefined`
+
+- **Location:** app/services/UserService.php:45
+- **Events:** 23 | **Users:** 12
+
+*[ View in Nadi ] [ Resolve ] [ Ignore ]*
+:::
 
 ### Rich Context
 

@@ -62,19 +62,15 @@ View all sessions with filters:
 
 ### Overview
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│  Session: abc123                                            │
-├─────────────────────────────────────────────────────────────┤
-│  Duration: 4m 32s                                          │
-│  Pages: 5                                                   │
-│  Errors: 1                                                  │
-│  User: john@example.com                                     │
-│                                                             │
-│  Device: Desktop / Chrome 120 / Windows 10                 │
-│  Location: San Francisco, US                               │
-└─────────────────────────────────────────────────────────────┘
-```
+| Property | Value |
+|----------|-------|
+| **Session** | abc123 |
+| **Duration** | 4m 32s |
+| **Pages** | 5 |
+| **Errors** | 1 |
+| **User** | john@example.com |
+| **Device** | Desktop / Chrome 120 / Windows 10 |
+| **Location** | San Francisco, US |
 
 ### Event Timeline
 

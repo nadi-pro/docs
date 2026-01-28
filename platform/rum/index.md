@@ -39,26 +39,21 @@ Navigate to **Performance** in the dashboard to see:
 
 ## Dashboard Overview
 
+```mermaid
+block-beta
+    columns 3
+    lcp["LCP<br/>2.1s<br/>Good"]
+    fid["FID<br/>45ms<br/>Good"]
+    cls["CLS<br/>0.05<br/>Good"]
 ```
-┌─────────────────────────────────────────────────────────────────┐
-│  Performance Overview                         Last 24 Hours     │
-├─────────────────────────────────────────────────────────────────┤
-│                                                                 │
-│  ┌──────────┐  ┌──────────┐  ┌──────────┐                     │
-│  │   LCP    │  │   FID    │  │   CLS    │                     │
-│  │  2.1s    │  │   45ms   │  │  0.05    │                     │
-│  │  Good    │  │  Good    │  │  Good    │                     │
-│  └──────────┘  └──────────┘  └──────────┘                     │
-│                                                                 │
-│  Page Performance                                               │
-│  ┌──────────────────────────────────────────────────────────┐  │
-│  │ /             1.8s    Good     12,345 views             │  │
-│  │ /products     2.4s    Moderate  8,234 views             │  │
-│  │ /checkout     3.1s    Poor      2,123 views             │  │
-│  └──────────────────────────────────────────────────────────┘  │
-│                                                                 │
-└─────────────────────────────────────────────────────────────────┘
-```
+
+**Page Performance**
+
+| Page | LCP | Status | Views |
+|------|-----|--------|-------|
+| / | 1.8s | Good | 12,345 |
+| /products | 2.4s | Moderate | 8,234 |
+| /checkout | 3.1s | Poor | 2,123 |
 
 ## Metrics
 

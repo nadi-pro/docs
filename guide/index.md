@@ -23,15 +23,14 @@ Nadi is a comprehensive error monitoring solution that captures, aggregates, and
 
 Nadi uses a simple but powerful architecture:
 
-```
-┌─────────────┐     ┌─────────────┐     ┌─────────────┐
-│ Application │────▶│   Shipper   │────▶│    Nadi     │
-│  (SDK)      │     │   (Agent)   │     │  Collector  │
-└─────────────┘     └─────────────┘     └─────────────┘
-      │                   │                    │
-      │  Captures events  │  Ships log files   │  Stores & analyzes
-      │  to log files     │  to Nadi           │  error data
-      └───────────────────┴────────────────────┴──────────────────▶ Dashboard
+```mermaid
+flowchart LR
+    app["Application + SDK"]
+    shipper["Shipper Agent"]
+    collector["Nadi Collector"]
+    dashboard["Dashboard"]
+
+    app -->|"logs"| shipper -->|"ships"| collector -->|"analyzes"| dashboard
 ```
 
 1. **Application SDK** - Installed in your application to capture errors, exceptions, and performance data

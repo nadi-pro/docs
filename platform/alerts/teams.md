@@ -31,23 +31,18 @@ Receive Nadi alerts in Microsoft Teams channels.
 
 ### Standard Alert
 
-```
-┌─────────────────────────────────────────────────────────────┐
-│ 🔴 Nadi Alert                                              │
-│ New Error in my-app (production)                           │
-├─────────────────────────────────────────────────────────────┤
-│                                                             │
-│ TypeError: Cannot read property 'name' of undefined        │
-│                                                             │
-│ • Location: app/services/UserService.php:45                │
-│ • Events: 23                                               │
-│ • Users Affected: 12                                       │
-│ • Environment: production                                   │
-│                                                             │
-│ [ View in Nadi ]                                           │
-│                                                             │
-└─────────────────────────────────────────────────────────────┘
-```
+::: info Alert Preview
+**Nadi Alert: New Error in my-app (production)**
+
+`TypeError: Cannot read property 'name' of undefined`
+
+- **Location:** app/services/UserService.php:45
+- **Events:** 23
+- **Users Affected:** 12
+- **Environment:** production
+
+*[ View in Nadi ]*
+:::
 
 ### Adaptive Card
 

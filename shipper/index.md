@@ -13,14 +13,13 @@ Shipper is written in Go and designed to be:
 
 ## How It Works
 
-```
-┌─────────────────┐     ┌─────────────────┐     ┌─────────────────┐
-│  Your App       │     │    Shipper      │     │     Nadi        │
-│                 │     │                 │     │                 │
-│  Writes logs    │────▶│  Reads logs     │────▶│  Receives &     │
-│  to files       │     │  Sends to Nadi  │     │  processes      │
-│                 │     │  Tracks progress│     │                 │
-└─────────────────┘     └─────────────────┘     └─────────────────┘
+```mermaid
+flowchart LR
+    app["Your App"]
+    shipper["Shipper"]
+    nadi["Nadi"]
+
+    app -->|"writes logs"| shipper -->|"sends to API"| nadi
 ```
 
 1. Your application writes error events to log files
