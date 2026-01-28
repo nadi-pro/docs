@@ -17,6 +17,9 @@ export default withMermaid(defineConfig({
     ['meta', { property: 'og:title', content: 'Nadi — Your App\'s Nervous System' }],
     ['meta', { property: 'og:description', content: 'Errors, traces, real user monitoring unified in one dashboard. 5-minute setup for PHP, JavaScript, and more.' }],
     ['meta', { property: 'og:image', content: 'https://docs.nadi.pro/og-image.png' }],
+    ['meta', { property: 'og:image:width', content: '1920' }],
+    ['meta', { property: 'og:image:height', content: '1020' }],
+    ['meta', { property: 'og:image:type', content: 'image/png' }],
     ['meta', { property: 'og:url', content: 'https://docs.nadi.pro' }],
     // Twitter Card
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
