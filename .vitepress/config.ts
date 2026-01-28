@@ -2,21 +2,25 @@ import { defineConfig } from 'vitepress'
 
 export default defineConfig({
   title: 'Nadi',
-  description: 'Error monitoring and exception tracking for modern applications',
+  description: 'Your App\'s Nervous System — Errors, traces, real user monitoring unified in one dashboard. 5-minute setup for PHP, JavaScript, and more.',
 
   head: [
     ['link', { rel: 'icon', href: '/favicon.ico' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.googleapis.com' }],
     ['link', { rel: 'preconnect', href: 'https://fonts.gstatic.com', crossorigin: '' }],
     ['link', { href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap', rel: 'stylesheet' }],
-    ['meta', { name: 'theme-color', content: '#0284c7' }],
+    ['meta', { name: 'theme-color', content: '#008BFF' }],
     ['meta', { name: 'og:type', content: 'website' }],
-    ['meta', { name: 'og:site_name', content: 'Nadi Documentation' }],
+    ['meta', { name: 'og:site_name', content: 'Nadi — Your App\'s Nervous System' }],
   ],
 
   themeConfig: {
-    logo: '/logo.svg',
-    siteTitle: 'Nadi',
+    logo: {
+      light: '/logo.svg',
+      dark: '/logo-dark.svg',
+      alt: 'Nadi'
+    },
+    siteTitle: false,
 
     nav: [
       { text: 'Guide', link: '/guide/' },

@@ -2,81 +2,47 @@
 layout: home
 
 hero:
-  name: Nadi
-  text: Error Monitoring & Exception Tracking
-  tagline: Identify, track, and resolve bugs faster with comprehensive error monitoring for PHP, JavaScript, and WordPress applications.
+  name:
+  text: Your App's Nervous System
+  tagline: Errors. Traces. Real Users. One Pulse. From backend exceptions to frontend experience — feel everything, fix faster.
   image:
-    src: /logo.svg
+    light: /logo.svg
+    dark: /logo-dark.svg
     alt: Nadi
   actions:
     - theme: brand
-      text: Get Started
+      text: Start Free
       link: /guide/quick-start
-    - theme: alt
-      text: View on GitHub
-      link: https://github.com/nadi-pro
 
 features:
-  - icon: 🔍
-    title: Real-time Error Tracking
-    details: Capture exceptions, errors, and crashes as they happen with full stack traces, request data, and contextual information.
-  - icon: 📊
-    title: Web Vitals & RUM
-    details: Monitor real user experience with Core Web Vitals, performance metrics, and session replay capabilities.
-  - icon: 🚨
+  - icon:
+      dark: /icons/error-dark.svg
+      light: /icons/error-light.svg
+    title: Errors — Know When It Hurts
+    details: Exceptions, failures, crashes — caught instantly with full context. Real-time alerts, smart grouping, and team collaboration.
+  - icon:
+      dark: /icons/trace-dark.svg
+      light: /icons/trace-light.svg
+    title: Traces — Follow Every Request
+    details: See exactly where time is spent. Database queries, HTTP calls, queue jobs — traced end-to-end with OpenTelemetry support.
+  - icon:
+      dark: /icons/rum-dark.svg
+      light: /icons/rum-light.svg
+    title: RUM — See Through Your Users' Eyes
+    details: Real User Monitoring captures what actually happens in the browser. Core Web Vitals, JS errors, and performance metrics.
+  - icon:
+      dark: /icons/logs-dark.svg
+      light: /icons/logs-light.svg
+    title: Logs — Every Message, In Flow
+    details: Centralized logging that actually makes sense. Structured, searchable, and automatically linked to traces.
+  - icon:
+      dark: /icons/speed-dark.svg
+      light: /icons/speed-light.svg
+    title: Zero Performance Impact
+    details: The Nadi Shipper handles transport in the background. Your app stays fast. Every signal still arrives.
+  - icon:
+      dark: /icons/alert-dark.svg
+      light: /icons/alert-light.svg
     title: Instant Alerts
-    details: Get notified immediately via Slack, Teams, Telegram, email, or webhooks when critical issues occur.
-  - icon: 🔧
-    title: Multi-Platform SDKs
-    details: Native SDKs for Laravel, PHP, WordPress, and JavaScript with framework-specific integrations.
-  - icon: 📈
-    title: Smart Aggregation
-    details: Intelligently group similar errors to identify patterns, track trends, and prioritize fixes effectively.
-  - icon: ⚡
-    title: Lightweight & Fast
-    details: Minimal performance overhead with efficient log shipping via Shipper agent and configurable sampling strategies.
+    details: Get notified via Slack, Discord, Telegram, email, or webhooks. Smart grouping means 1000 errors, 1 notification.
 ---
-
-## Quick Start
-
-Get up and running with Nadi in minutes:
-
-::: code-group
-
-```bash [Laravel]
-composer require nadi-pro/nadi-laravel
-php artisan nadi:install
-```
-
-```bash [PHP]
-composer require nadi-pro/nadi-php
-```
-
-```bash [JavaScript]
-npm install @nadi-pro/browser
-```
-
-```bash [WordPress]
-# Download from GitHub releases
-# Upload via WordPress Plugins page
-```
-
-:::
-
-Then install the [Shipper](/shipper/) agent to send logs to Nadi:
-
-```bash
-sudo bash < <(curl -sL https://raw.githubusercontent.com/nadi-pro/shipper/master/install)
-```
-
-[Read the full guide →](/guide/quick-start)
-
-## Platform Requirements
-
-| SDK | Requirements |
-|-----|--------------|
-| Laravel | PHP 8.1+, Laravel 9+ |
-| PHP Core | PHP 8.1+ |
-| WordPress | PHP 8.1+, WordPress 5.0+ |
-| JavaScript | Modern browsers (ES2020+) |
-| Shipper | Linux, macOS, or Windows |

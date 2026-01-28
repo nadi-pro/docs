@@ -1,14 +1,14 @@
 /**
  * Nadi Documentation - Custom Styles
- * Color palette evolved from #048cfc
+ * Brand color: #008BFF
  */
 
 :root {
   /* Brand Colors */
-  --vp-c-brand-1: #0284c7;
-  --vp-c-brand-2: #0ea5e9;
-  --vp-c-brand-3: #38bdf8;
-  --vp-c-brand-soft: rgba(2, 132, 199, 0.14);
+  --vp-c-brand-1: #008BFF;
+  --vp-c-brand-2: #339DFF;
+  --vp-c-brand-3: #66B3FF;
+  --vp-c-brand-soft: rgba(0, 139, 255, 0.14);
 
   /* Semantic Colors */
   --nadi-tip: #8b5cf6;
@@ -25,11 +25,11 @@
 
   /* Hero Section */
   --vp-home-hero-name-color: transparent;
-  --vp-home-hero-name-background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+  --vp-home-hero-name-background: linear-gradient(135deg, #008BFF 0%, #66B3FF 100%);
   --vp-home-hero-image-background-image: linear-gradient(
     135deg,
-    rgba(2, 132, 199, 0.2) 0%,
-    rgba(56, 189, 248, 0.2) 100%
+    rgba(0, 139, 255, 0.2) 0%,
+    rgba(102, 179, 255, 0.2) 100%
   );
   --vp-home-hero-image-filter: blur(44px);
 
@@ -46,15 +46,15 @@
 }
 
 .dark {
-  --vp-c-brand-1: #38bdf8;
-  --vp-c-brand-2: #0ea5e9;
-  --vp-c-brand-3: #0284c7;
-  --vp-c-brand-soft: rgba(56, 189, 248, 0.14);
+  --vp-c-brand-1: #66B3FF;
+  --vp-c-brand-2: #339DFF;
+  --vp-c-brand-3: #008BFF;
+  --vp-c-brand-soft: rgba(102, 179, 255, 0.14);
 
   --vp-home-hero-image-background-image: linear-gradient(
     135deg,
-    rgba(56, 189, 248, 0.15) 0%,
-    rgba(2, 132, 199, 0.15) 100%
+    rgba(102, 179, 255, 0.15) 0%,
+    rgba(0, 139, 255, 0.15) 100%
   );
 }
 
