@@ -8,15 +8,50 @@ After installation, the configuration file is located at `config/nadi.php`.
 
 ## Environment Variables
 
-| Variable | Description | Default |
-|----------|-------------|---------|
-| `NADI_API_KEY` | Your Nadi API key | - |
-| `NADI_APP_KEY` | Your application key | - |
-| `NADI_ENABLED` | Enable/disable reporting | `true` |
-| `NADI_ENVIRONMENT` | Environment name | `APP_ENV` |
-| `NADI_STORAGE_PATH` | Log file directory | `/var/log/nadi` |
-| `NADI_SAMPLING_STRATEGY` | Sampling strategy | `fixed_rate` |
-| `NADI_SAMPLING_RATE` | Fixed sampling rate | `1.0` |
+| Variable                 | Description          | Default                |
+| ------------------------ | -------------------- | ---------------------- |
+| `NADI_ENABLED`           | Enable/disable Nadi  | `true`                 |
+| `NADI_DRIVER`            | Transport driver     | `log`                  |
+| `NADI_API_KEY`           | Your Nadi API key    | -                      |
+| `NADI_APP_KEY`           | Your application key | -                      |
+| `NADI_ENDPOINT`          | API endpoint         | `https://api.nadi.pro` |
+| `NADI_STORAGE_PATH`      | Log file directory   | `storage/nadi`         |
+| `NADI_SAMPLING_STRATEGY` | Sampling strategy    | `fixed_rate`           |
+| `NADI_SAMPLING_RATE`     | Fixed sampling rate  | `0.1`                  |
+
+## Transport Drivers
+
+Nadi supports three transport methods:
+
+### Log Driver (Recommended)
+
+Writes monitoring data to local JSON files. The shipper binary forwards files to the Nadi API.
+
+```env
+NADI_DRIVER=log
+NADI_STORAGE_PATH=storage/nadi
+```
+
+### HTTP Driver
+
+Sends data directly to the Nadi API over HTTP.
+
+```env
+NADI_DRIVER=http
+NADI_API_KEY=your-sanctum-token
+NADI_APP_KEY=your-application-key
+NADI_ENDPOINT=https://api.nadi.pro
+```
+
+### OpenTelemetry Driver
+
+Exports data using OpenTelemetry Protocol (OTLP).
+
+```env
+NADI_DRIVER=opentelemetry
+NADI_OTEL_ENDPOINT=http://localhost:4318
+NADI_OTEL_SERVICE_NAME=my-app
+```
 
 ## Full Configuration Reference
 
@@ -26,201 +61,92 @@ After installation, the configuration file is located at `config/nadi.php`.
 return [
     /*
     |--------------------------------------------------------------------------
-    | API Credentials
-    |--------------------------------------------------------------------------
-    */
-    'api_key' => env('NADI_API_KEY'),
-    'app_key' => env('NADI_APP_KEY'),
-
-    /*
-    |--------------------------------------------------------------------------
     | Enabled
     |--------------------------------------------------------------------------
-    |
-    | Set to false to completely disable Nadi. Useful for local development.
-    |
     */
     'enabled' => env('NADI_ENABLED', true),
 
     /*
     |--------------------------------------------------------------------------
-    | Environment
+    | Driver
     |--------------------------------------------------------------------------
     |
-    | The environment name sent with each event. Helps filter events in the
-    | dashboard by environment (production, staging, development, etc.)
+    | Transport method: log, http, opentelemetry
     |
     */
-    'environment' => env('NADI_ENVIRONMENT', env('APP_ENV', 'production')),
+    'driver' => env('NADI_DRIVER', 'log'),
 
     /*
     |--------------------------------------------------------------------------
-    | Release / Version
+    | Connections
     |--------------------------------------------------------------------------
-    |
-    | The release version of your application. Can be a semantic version,
-    | git commit hash, or any identifier that helps you track deployments.
-    |
     */
-    'release' => env('NADI_RELEASE', null),
+    'connections' => [
+        'log' => [
+            'path' => env('NADI_STORAGE_PATH', storage_path('nadi/')),
+        ],
+        'http' => [
+            'apiKey' => env('NADI_API_KEY'),
+            'appKey' => env('NADI_APP_KEY'),
+            'endpoint' => env('NADI_ENDPOINT', 'https://api.nadi.pro'),
+            'version' => env('NADI_API_VERSION', 'v1'),
+        ],
+        'opentelemetry' => [
+            'endpoint' => env('NADI_OTEL_ENDPOINT', 'http://localhost:4318'),
+            'service_name' => env('NADI_OTEL_SERVICE_NAME', config('app.name')),
+            'service_version' => env('NADI_OTEL_SERVICE_VERSION', '1.0.0'),
+            'protocol' => env('NADI_OTEL_PROTOCOL', 'http/protobuf'),
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
-    | Log Storage Path
+    | Event Observation
     |--------------------------------------------------------------------------
-    |
-    | Directory where Nadi writes log files. The Shipper agent reads from
-    | this location to send events to Nadi.
-    |
     */
-    'storage_path' => env('NADI_STORAGE_PATH', '/var/log/nadi'),
+    'observe' => [
+        \Illuminate\Log\Events\MessageLogged::class => [
+            \Nadi\Laravel\Handler\HandleExceptionEvent::class,
+        ],
+        \Illuminate\Database\Events\QueryExecuted::class => [
+            \Nadi\Laravel\Handler\HandleQueryExecutedEvent::class,
+        ],
+        \Illuminate\Queue\Events\JobFailed::class => [
+            \Nadi\Laravel\Handler\HandleFailedJobEvent::class,
+        ],
+        \Illuminate\Foundation\Http\Events\RequestHandled::class => [
+            \Nadi\Laravel\Handler\HandleHttpRequestEvent::class,
+        ],
+    ],
 
     /*
     |--------------------------------------------------------------------------
-    | Transporter
+    | Query Monitoring
     |--------------------------------------------------------------------------
-    |
-    | How events are sent to Nadi:
-    | - 'file': Write to log files (recommended, use with Shipper)
-    | - 'http': Send directly to Nadi API
-    |
     */
-    'transporter' => env('NADI_TRANSPORTER', 'file'),
+    'query' => [
+        'slow-threshold' => env('NADI_QUERY_SLOW_THRESHOLD', 500), // milliseconds
+    ],
 
     /*
     |--------------------------------------------------------------------------
-    | HTTP Transporter Settings
+    | HTTP Request Filtering
     |--------------------------------------------------------------------------
-    |
-    | Settings for direct HTTP transport (when transporter is 'http').
-    |
     */
     'http' => [
-        'endpoint' => env('NADI_ENDPOINT', 'https://nadi.pro/api/'),
-        'timeout' => env('NADI_HTTP_TIMEOUT', 5),
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Exception Handling
-    |--------------------------------------------------------------------------
-    */
-
-    // Exceptions that should not be reported
-    'dont_report' => [
-        \Illuminate\Auth\AuthenticationException::class,
-        \Illuminate\Auth\Access\AuthorizationException::class,
-        \Symfony\Component\HttpKernel\Exception\HttpException::class,
-        \Illuminate\Database\Eloquent\ModelNotFoundException::class,
-        \Illuminate\Validation\ValidationException::class,
-    ],
-
-    // Only report these exceptions (if set, dont_report is ignored)
-    'report_only' => [],
-
-    // Exception levels (override default level for specific exceptions)
-    'exception_levels' => [
-        // \App\Exceptions\WarningException::class => 'warning',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Request Data
-    |--------------------------------------------------------------------------
-    */
-
-    // Fields to scrub from request data
-    'scrub_fields' => [
-        'password',
-        'password_confirmation',
-        'secret',
-        'token',
-        'api_key',
-        'credit_card',
-        'card_number',
-        'cvv',
-        'cvc',
-        'ssn',
-    ],
-
-    // Headers to exclude from capture
-    'scrub_headers' => [
-        'Authorization',
-        'Cookie',
-        'X-CSRF-TOKEN',
-    ],
-
-    // Capture request body (POST data)
-    'capture_request_body' => true,
-
-    // Maximum size of captured request body (in bytes)
-    'max_request_body_size' => 10240, // 10KB
-
-    /*
-    |--------------------------------------------------------------------------
-    | User Identification
-    |--------------------------------------------------------------------------
-    */
-    'user' => [
-        // Automatically identify authenticated users
-        'auto_identify' => true,
-
-        // Fields to capture from the user model
-        'fields' => ['id', 'email', 'name'],
-
-        // Capture IP address
-        'capture_ip' => true,
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Context
-    |--------------------------------------------------------------------------
-    */
-
-    // Default tags for all events
-    'tags' => [
-        // 'server' => gethostname(),
-    ],
-
-    // Default extra data for all events
-    'extra' => [
-        // 'custom_field' => 'value',
-    ],
-
-    /*
-    |--------------------------------------------------------------------------
-    | Performance
-    |--------------------------------------------------------------------------
-    */
-
-    // Capture slow queries (requires DB logging)
-    'capture_slow_queries' => false,
-    'slow_query_threshold' => 1000, // milliseconds
-
-    // Capture queue job exceptions
-    'capture_queue_exceptions' => true,
-
-    // Capture scheduled task exceptions
-    'capture_schedule_exceptions' => true,
-
-    /*
-    |--------------------------------------------------------------------------
-    | Stack Trace
-    |--------------------------------------------------------------------------
-    */
-
-    // Maximum frames to capture
-    'max_stack_frames' => 50,
-
-    // Paths to mark as "in app" (your code vs vendor code)
-    'in_app_include' => [
-        base_path('app'),
-    ],
-
-    // Paths to exclude from "in app"
-    'in_app_exclude' => [
-        base_path('vendor'),
+        'hidden_request_headers' => [
+            'authorization',
+            'php-auth-pw',
+        ],
+        'hidden_parameters' => [
+            'password',
+            'password_confirmation',
+        ],
+        'ignored_status_codes' => [
+            100, 101, 102, 103,
+            200, 201, 202, 203, 204, 205, 206, 207,
+            300, 302, 303, 304, 305, 306, 307, 308,
+        ],
     ],
 
     /*
@@ -229,24 +155,13 @@ return [
     |--------------------------------------------------------------------------
     */
     'sampling' => [
-        // Strategy: fixed_rate, dynamic_rate, interval, peak_load
         'strategy' => env('NADI_SAMPLING_STRATEGY', 'fixed_rate'),
-
         'config' => [
-            // For fixed_rate: percentage of events to capture (0.0 - 1.0)
-            'sampling_rate' => env('NADI_SAMPLING_RATE', 1.0),
-
-            // For dynamic_rate: base sampling rate
+            'sampling_rate' => env('NADI_SAMPLING_RATE', 0.1),
             'base_rate' => env('NADI_SAMPLING_BASE_RATE', 0.05),
-
-            // For dynamic_rate: multiplier based on load
             'load_factor' => env('NADI_SAMPLING_LOAD_FACTOR', 1.0),
-
-            // For interval: seconds between samples
             'interval_seconds' => env('NADI_SAMPLING_INTERVAL_SECONDS', 60),
         ],
-
-        // Custom sampling strategies
         'strategies' => [
             'dynamic_rate' => \Nadi\Sampling\DynamicRateSampling::class,
             'fixed_rate' => \Nadi\Sampling\FixedRateSampling::class,
@@ -257,15 +172,45 @@ return [
 ];
 ```
 
+## Shipper Configuration
+
+The shipper configuration file is located at `storage/nadi/nadi.yaml`. This file is created during installation.
+
+### Manual Configuration
+
+If you skipped credentials during installation, update `storage/nadi/nadi.yaml`:
+
+```yaml
+nadi:
+  endpoint: https://api.nadi.pro
+  apiKey: your-api-key-here
+  token: your-app-key-here
+  storage: /path/to/project/storage/nadi
+```
+
+### Shipper Options
+
+| Option          | Description                        | Default                 |
+| --------------- | ---------------------------------- | ----------------------- |
+| `endpoint`      | Nadi API endpoint                  | `https://nadi.pro/api/` |
+| `apiKey`        | API authentication key             | -                       |
+| `token`         | Application identifier             | -                       |
+| `storage`       | Directory to monitor for log files | `/var/log/nadi`         |
+| `checkInterval` | How often to check for new files   | `5s`                    |
+| `maxTries`      | Maximum retry attempts             | `3`                     |
+| `timeout`       | Request timeout                    | `1m`                    |
+| `workers`       | Concurrent workers                 | `4`                     |
+| `compress`      | Enable gzip compression            | `false`                 |
+
 ## Environment-Specific Configuration
 
 ### Development
 
 ```env
 NADI_ENABLED=false
-# Or enable with high verbosity
+# Or enable with full capture
 NADI_ENABLED=true
-NADI_ENVIRONMENT=development
+NADI_DRIVER=log
 NADI_SAMPLING_RATE=1.0
 ```
 
@@ -273,7 +218,7 @@ NADI_SAMPLING_RATE=1.0
 
 ```env
 NADI_ENABLED=true
-NADI_ENVIRONMENT=staging
+NADI_DRIVER=log
 NADI_SAMPLING_RATE=1.0
 ```
 
@@ -281,23 +226,9 @@ NADI_SAMPLING_RATE=1.0
 
 ```env
 NADI_ENABLED=true
-NADI_ENVIRONMENT=production
-NADI_SAMPLING_STRATEGY=dynamic_rate
-NADI_SAMPLING_BASE_RATE=0.1
-```
-
-## Conditional Configuration
-
-Use Laravel's configuration merging for dynamic settings:
-
-```php
-// AppServiceProvider.php
-public function boot()
-{
-    if (app()->environment('production')) {
-        config(['nadi.sampling.config.sampling_rate' => 0.1]);
-    }
-}
+NADI_DRIVER=log
+NADI_SAMPLING_STRATEGY=fixed_rate
+NADI_SAMPLING_RATE=0.1
 ```
 
 ## Testing Configuration
@@ -305,14 +236,22 @@ public function boot()
 Verify your configuration:
 
 ```bash
-php artisan nadi:test
+php artisan nadi:verify
 ```
 
-This command:
-- Validates API credentials
-- Tests connectivity to Nadi
-- Sends a test exception
-- Confirms Shipper can access log files
+This command validates:
+
+- Enabled status
+- Driver configuration
+- API credentials
+- Storage directory permissions
+- Sampling settings
+
+Test connectivity:
+
+```bash
+php artisan nadi:test
+```
 
 ## Next Steps
 

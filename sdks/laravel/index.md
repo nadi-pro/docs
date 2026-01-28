@@ -1,6 +1,7 @@
 # Laravel SDK
 
-The Nadi Laravel SDK provides seamless integration with Laravel applications, automatically capturing exceptions and providing Laravel-specific context.
+The Nadi Laravel SDK provides seamless integration with Laravel applications,
+automatically capturing exceptions and providing Laravel-specific context.
 
 ## Requirements
 
@@ -23,88 +24,85 @@ php artisan nadi:install
 ```
 
 This command will:
-- Publish the configuration file to `config/nadi.php`
-- Add environment variables to your `.env` file
-- Register the exception handler
+
+1. Publish the configuration file to `config/nadi.php`
+2. Download and install the Nadi Shipper binary to `vendor/bin/`
+3. Create the `storage/nadi/` directory for log files
+4. Download the latest shipper configuration from GitHub
+5. Prompt for your API credentials (can be skipped)
+6. Display Supervisord setup instructions
+
+### Interactive Credential Setup
+
+During installation, you'll be prompted to enter:
+
+- **API Key** - Your Sanctum token from your Nadi account
+- **App Key** - Your application identifier from Nadi
+
+Press Enter to skip and configure later. Get your credentials at [https://nadi.pro](https://nadi.pro).
+
+### Installation Options
+
+```bash
+# Skip shipper binary installation
+php artisan nadi:install --skip-shipper
+
+# Skip shipper config (nadi.yaml) setup
+php artisan nadi:install --skip-config
+
+# Force overwrite existing configuration files
+php artisan nadi:install --force
+```
 
 ## Configuration
 
 Add your credentials to `.env`:
 
 ```env
+NADI_ENABLED=true
+NADI_DRIVER=log
 NADI_API_KEY=your-api-key
 NADI_APP_KEY=your-application-key
 ```
 
-The configuration file `config/nadi.php` provides additional options:
+The configuration file `config/nadi.php` provides additional options.
+See [Configuration](/sdks/laravel/configuration) for full reference.
 
-```php
-return [
-    /*
-    |--------------------------------------------------------------------------
-    | Nadi API Key
-    |--------------------------------------------------------------------------
-    |
-    | Your Nadi API key for authentication.
-    |
-    */
-    'api_key' => env('NADI_API_KEY'),
+## Shipper Setup
 
-    /*
-    |--------------------------------------------------------------------------
-    | Nadi Application Key
-    |--------------------------------------------------------------------------
-    |
-    | Your application key identifies this project in Nadi.
-    |
-    */
-    'app_key' => env('NADI_APP_KEY'),
+The shipper binary monitors `storage/nadi/` for log files and forwards them to the Nadi API.
+Set up Supervisord to run the shipper as a background process.
 
-    /*
-    |--------------------------------------------------------------------------
-    | Environment
-    |--------------------------------------------------------------------------
-    |
-    | The environment name to tag events with.
-    |
-    */
-    'environment' => env('NADI_ENVIRONMENT', env('APP_ENV', 'production')),
+Create a supervisor config file:
 
-    /*
-    |--------------------------------------------------------------------------
-    | Enabled
-    |--------------------------------------------------------------------------
-    |
-    | Enable or disable Nadi error reporting.
-    |
-    */
-    'enabled' => env('NADI_ENABLED', true),
+```bash
+sudo nano /etc/supervisor/conf.d/nadi-shipper.conf
+```
 
-    /*
-    |--------------------------------------------------------------------------
-    | Log Storage Path
-    |--------------------------------------------------------------------------
-    |
-    | The path where Nadi writes log files for Shipper to process.
-    |
-    */
-    'storage_path' => env('NADI_STORAGE_PATH', '/var/log/nadi'),
+Add the configuration (paths are shown during installation):
 
-    /*
-    |--------------------------------------------------------------------------
-    | Sampling Configuration
-    |--------------------------------------------------------------------------
-    */
-    'sampling' => [
-        'strategy' => env('NADI_SAMPLING_STRATEGY', 'fixed_rate'),
-        'config' => [
-            'sampling_rate' => env('NADI_SAMPLING_RATE', 1.0),
-            'base_rate' => env('NADI_SAMPLING_BASE_RATE', 0.05),
-            'load_factor' => env('NADI_SAMPLING_LOAD_FACTOR', 1.0),
-            'interval_seconds' => env('NADI_SAMPLING_INTERVAL_SECONDS', 60),
-        ],
-    ],
-];
+```ini
+[program:nadi-shipper-your-app]
+process_name=%(program_name)s
+command=/path/to/project/vendor/bin/shipper --config=/path/to/project/storage/nadi/nadi.yaml
+directory=/path/to/project
+autostart=true
+autorestart=true
+user=www-data
+numprocs=1
+redirect_stderr=true
+stdout_logfile=/path/to/project/storage/logs/shipper.log
+stdout_logfile_maxbytes=10MB
+stdout_logfile_backups=3
+stopwaitsecs=3600
+```
+
+Apply the configuration:
+
+```bash
+sudo supervisorctl reread
+sudo supervisorctl update
+sudo supervisorctl start nadi-shipper-your-app
 ```
 
 ## Basic Usage
@@ -202,16 +200,16 @@ Nadi::setExtras([
 
 The Laravel SDK automatically captures:
 
-| Data | Description |
-|------|-------------|
-| Exception | Type, message, code, file, line |
-| Stack Trace | Full trace with file paths and line numbers |
-| Request | URL, method, headers, input (filtered) |
-| User | Authenticated user (if configured) |
-| Session | Session data (filtered) |
+| Data        | Description                                   |
+| ----------- | --------------------------------------------- |
+| Exception   | Type, message, code, file, line               |
+| Stack Trace | Full trace with file paths and line numbers   |
+| Request     | URL, method, headers, input (filtered)        |
+| User        | Authenticated user (if configured)            |
+| Session     | Session data (filtered)                       |
 | Environment | App environment, PHP version, Laravel version |
-| Route | Route name, action, parameters |
-| Git | Commit hash (if available) |
+| Route       | Route name, action, parameters                |
+| Git         | Commit hash (if available)                    |
 
 ## Filtering Sensitive Data
 
@@ -246,8 +244,14 @@ Don't report certain exceptions:
 ## Artisan Commands
 
 ```bash
+# Install Nadi and setup shipper
+php artisan nadi:install
+
 # Test your Nadi configuration
 php artisan nadi:test
+
+# Verify configuration and connectivity
+php artisan nadi:verify
 
 # Republish configuration
 php artisan vendor:publish --tag=nadi-config --force
