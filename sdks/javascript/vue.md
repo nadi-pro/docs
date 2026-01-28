@@ -1,4 +1,8 @@
-# Vue Integration
+# Vue Integration <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
+
+::: warning Coming Soon
+The `@nadi-pro/vue` package is currently under development. The documentation below describes the planned API and features.
+:::
 
 Integrate Nadi with Vue.js applications for comprehensive error tracking.
 

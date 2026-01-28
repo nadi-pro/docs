@@ -1,6 +1,6 @@
 <script setup lang="ts">
 defineProps<{
-  type?: 'required' | 'optional' | 'new' | 'deprecated'
+  type?: 'required' | 'optional' | 'new' | 'deprecated' | 'coming-soon'
   version?: string
 }>()
 </script>
@@ -15,31 +15,37 @@ defineProps<{
 .version-badge {
   display: inline-flex;
   align-items: center;
-  padding: 0.125rem 0.5rem;
-  font-size: 0.75rem;
+  padding: 0.0625rem 0.375rem;
+  font-size: 0.65rem;
   font-weight: 500;
-  border-radius: 9999px;
-  margin-left: 0.5rem;
+  border-radius: 4px;
+  margin-left: 0.375rem;
   vertical-align: middle;
+  line-height: 1.4;
 }
 
 .version-badge.required {
-  background-color: rgba(239, 68, 68, 0.1);
-  color: #ef4444;
+  background-color: rgba(239, 68, 68, 0.2);
+  color: #dc2626;
 }
 
 .version-badge.optional {
-  background-color: rgba(139, 92, 246, 0.1);
-  color: #8b5cf6;
+  background-color: rgba(139, 92, 246, 0.2);
+  color: #7c3aed;
 }
 
 .version-badge.new {
-  background-color: rgba(34, 197, 94, 0.1);
-  color: #22c55e;
+  background-color: rgba(34, 197, 94, 0.2);
+  color: #16a34a;
 }
 
 .version-badge.deprecated {
-  background-color: rgba(249, 115, 22, 0.1);
-  color: #f97316;
+  background-color: rgba(249, 115, 22, 0.2);
+  color: #ea580c;
+}
+
+.version-badge.coming-soon {
+  background-color: rgba(59, 130, 246, 0.2);
+  color: #2563eb;
 }
 </style>

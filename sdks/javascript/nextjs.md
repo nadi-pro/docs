@@ -1,4 +1,8 @@
-# Next.js Integration
+# Next.js Integration <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
+
+::: warning Coming Soon
+The `@nadi-pro/nextjs` package is currently under development. The documentation below describes the planned API and features.
+:::
 
 Integrate Nadi with Next.js applications for comprehensive error tracking across client and server.
 

@@ -1,4 +1,8 @@
-# WooCommerce Integration
+# WooCommerce Integration <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
+
+::: warning Coming Soon
+WooCommerce integration is currently under development. The documentation below describes the planned features and API.
+:::
 
 Enhanced error tracking for WooCommerce stores.
 

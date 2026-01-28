@@ -51,7 +51,7 @@ Use the **WordPress Plugin** for WordPress sites:
 
 - One-click installation
 - Admin UI for configuration
-- WooCommerce integration
+- WooCommerce integration <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
 - WordPress-specific context
 
 [WordPress SDK Documentation →](/sdks/wordpress/)
@@ -63,8 +63,8 @@ Use the **JavaScript SDK** for browser applications:
 - Automatic error capturing
 - Web Vitals monitoring
 - Breadcrumb tracking
-- Session replay
-- Framework integrations (React, Vue, Angular, Next.js)
+- Session replay <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
+- Framework integrations (React, Vue, Angular, Next.js) <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
 
 ```bash
 npm install @nadi-pro/browser

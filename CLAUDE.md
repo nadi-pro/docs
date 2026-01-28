@@ -68,6 +68,30 @@ public/                    # Static assets (logo, favicon)
 - Sidebar navigation is configured in `.vitepress/config.ts`
 - Custom components available: `<SdkTabs>`, `<VersionBadge>`, `<ApiEndpoint>`, `<LegacyBanner>`
 
+## Version Badges
+
+Use `<VersionBadge>` to indicate feature status:
+
+```markdown
+# Feature Title <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
+```
+
+| Type | Color | Usage |
+|------|-------|-------|
+| `required` | Red | Required version/dependency |
+| `optional` | Purple | Optional feature |
+| `new` | Green | New feature |
+| `deprecated` | Orange | Deprecated feature |
+| `coming-soon` | Blue | Feature in development |
+
+## Coming Soon Features
+
+The following features are marked as "Coming Soon":
+
+- **JavaScript SDK**: React, Vue, Angular, Next.js integrations
+- **JavaScript SDK**: Session Replay
+- **WordPress SDK**: WooCommerce integration
+
 ## Diagrams
 
 Use **MermaidJS** for all diagrams. The site is configured with `vitepress-plugin-mermaid`.

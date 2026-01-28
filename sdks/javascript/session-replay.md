@@ -1,4 +1,8 @@
-# Session Replay
+# Session Replay <VersionBadge type="coming-soon">Coming Soon</VersionBadge>
+
+::: warning Coming Soon
+Session Replay is currently under development. The documentation below describes the planned features and API.
+:::
 
 Replay user sessions to understand how errors occurred and improve user experience.
 

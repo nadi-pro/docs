@@ -91,12 +91,12 @@ export default withMermaid(defineConfig({
             { text: 'Error Tracking', link: '/sdks/javascript/error-tracking' },
             { text: 'Breadcrumbs', link: '/sdks/javascript/breadcrumbs' },
             { text: 'Web Vitals', link: '/sdks/javascript/web-vitals' },
-            { text: 'Session Replay', link: '/sdks/javascript/session-replay' },
+            { text: 'Session Replay (Coming Soon)', link: '/sdks/javascript/session-replay' },
             { text: 'Source Maps', link: '/sdks/javascript/source-maps' },
-            { text: 'React', link: '/sdks/javascript/react' },
-            { text: 'Vue', link: '/sdks/javascript/vue' },
-            { text: 'Angular', link: '/sdks/javascript/angular' },
-            { text: 'Next.js', link: '/sdks/javascript/nextjs' }
+            { text: 'React (Coming Soon)', link: '/sdks/javascript/react' },
+            { text: 'Vue (Coming Soon)', link: '/sdks/javascript/vue' },
+            { text: 'Angular (Coming Soon)', link: '/sdks/javascript/angular' },
+            { text: 'Next.js (Coming Soon)', link: '/sdks/javascript/nextjs' }
           ]
         },
         {
@@ -106,7 +106,7 @@ export default withMermaid(defineConfig({
             { text: 'Installation', link: '/sdks/wordpress/' },
             { text: 'Configuration', link: '/sdks/wordpress/configuration' },
             { text: 'Error Tracking', link: '/sdks/wordpress/error-tracking' },
-            { text: 'WooCommerce', link: '/sdks/wordpress/woocommerce' }
+            { text: 'WooCommerce (Coming Soon)', link: '/sdks/wordpress/woocommerce' }
           ]
         }
       ],
