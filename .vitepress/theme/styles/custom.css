@@ -1,0 +1,274 @@
+/**
+ * Nadi Documentation - Custom Styles
+ * Color palette evolved from #048cfc
+ */
+
+:root {
+  /* Brand Colors */
+  --vp-c-brand-1: #0284c7;
+  --vp-c-brand-2: #0ea5e9;
+  --vp-c-brand-3: #38bdf8;
+  --vp-c-brand-soft: rgba(2, 132, 199, 0.14);
+
+  /* Semantic Colors */
+  --nadi-tip: #8b5cf6;
+  --nadi-warning: #f59e0b;
+  --nadi-danger: #ef4444;
+  --nadi-info: #3b82f6;
+
+  /* Typography */
+  --vp-font-family-base: 'Inter', 'Nunito', -apple-system, BlinkMacSystemFont,
+    'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Fira Sans', 'Droid Sans',
+    'Helvetica Neue', sans-serif;
+  --vp-font-family-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, 'SF Mono',
+    Menlo, Monaco, Consolas, 'Liberation Mono', 'Courier New', monospace;
+
+  /* Hero Section */
+  --vp-home-hero-name-color: transparent;
+  --vp-home-hero-name-background: linear-gradient(135deg, #0284c7 0%, #38bdf8 100%);
+  --vp-home-hero-image-background-image: linear-gradient(
+    135deg,
+    rgba(2, 132, 199, 0.2) 0%,
+    rgba(56, 189, 248, 0.2) 100%
+  );
+  --vp-home-hero-image-filter: blur(44px);
+
+  /* Button Colors */
+  --vp-button-brand-border: transparent;
+  --vp-button-brand-text: #fff;
+  --vp-button-brand-bg: var(--vp-c-brand-1);
+  --vp-button-brand-hover-border: transparent;
+  --vp-button-brand-hover-text: #fff;
+  --vp-button-brand-hover-bg: var(--vp-c-brand-2);
+  --vp-button-brand-active-border: transparent;
+  --vp-button-brand-active-text: #fff;
+  --vp-button-brand-active-bg: var(--vp-c-brand-1);
+}
+
+.dark {
+  --vp-c-brand-1: #38bdf8;
+  --vp-c-brand-2: #0ea5e9;
+  --vp-c-brand-3: #0284c7;
+  --vp-c-brand-soft: rgba(56, 189, 248, 0.14);
+
+  --vp-home-hero-image-background-image: linear-gradient(
+    135deg,
+    rgba(56, 189, 248, 0.15) 0%,
+    rgba(2, 132, 199, 0.15) 100%
+  );
+}
+
+/* Custom Containers */
+.custom-block.tip {
+  border-color: var(--nadi-tip);
+}
+
+.custom-block.tip .custom-block-title {
+  color: var(--nadi-tip);
+}
+
+.custom-block.warning {
+  border-color: var(--nadi-warning);
+}
+
+.custom-block.warning .custom-block-title {
+  color: var(--nadi-warning);
+}
+
+.custom-block.danger {
+  border-color: var(--nadi-danger);
+}
+
+.custom-block.danger .custom-block-title {
+  color: var(--nadi-danger);
+}
+
+.custom-block.info {
+  border-color: var(--nadi-info);
+}
+
+.custom-block.info .custom-block-title {
+  color: var(--nadi-info);
+}
+
+/* Version Badge Styles */
+.version-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.125rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 500;
+  border-radius: 9999px;
+  margin-left: 0.5rem;
+}
+
+.version-badge.required {
+  background-color: rgba(239, 68, 68, 0.1);
+  color: #ef4444;
+}
+
+.version-badge.optional {
+  background-color: rgba(139, 92, 246, 0.1);
+  color: #8b5cf6;
+}
+
+.version-badge.new {
+  background-color: rgba(34, 197, 94, 0.1);
+  color: #22c55e;
+}
+
+/* SDK Tabs */
+.sdk-tabs {
+  margin: 1.5rem 0;
+}
+
+.sdk-tabs .tab-header {
+  display: flex;
+  gap: 0.5rem;
+  border-bottom: 1px solid var(--vp-c-divider);
+  margin-bottom: 1rem;
+}
+
+.sdk-tabs .tab-btn {
+  padding: 0.5rem 1rem;
+  font-size: 0.875rem;
+  font-weight: 500;
+  color: var(--vp-c-text-2);
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.sdk-tabs .tab-btn:hover {
+  color: var(--vp-c-text-1);
+}
+
+.sdk-tabs .tab-btn.active {
+  color: var(--vp-c-brand-1);
+  border-bottom-color: var(--vp-c-brand-1);
+}
+
+.sdk-tabs .tab-content {
+  display: none;
+}
+
+.sdk-tabs .tab-content.active {
+  display: block;
+}
+
+/* API Endpoint */
+.api-endpoint {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 1rem;
+  background-color: var(--vp-c-bg-soft);
+  border-radius: 8px;
+  margin: 1rem 0;
+  font-family: var(--vp-font-family-mono);
+  font-size: 0.875rem;
+}
+
+.api-endpoint .method {
+  padding: 0.25rem 0.5rem;
+  font-size: 0.75rem;
+  font-weight: 600;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+
+.api-endpoint .method.get {
+  background-color: rgba(34, 197, 94, 0.15);
+  color: #22c55e;
+}
+
+.api-endpoint .method.post {
+  background-color: rgba(59, 130, 246, 0.15);
+  color: #3b82f6;
+}
+
+.api-endpoint .method.put {
+  background-color: rgba(249, 115, 22, 0.15);
+  color: #f97316;
+}
+
+.api-endpoint .method.delete {
+  background-color: rgba(239, 68, 68, 0.15);
+  color: #ef4444;
+}
+
+.api-endpoint .path {
+  color: var(--vp-c-text-1);
+}
+
+/* Code Groups Enhancement */
+.vp-code-group .tabs label {
+  font-weight: 500;
+}
+
+/* Hero Feature Cards */
+.VPFeatures .VPFeature {
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.VPFeatures .VPFeature:hover {
+  transform: translateY(-2px);
+}
+
+/* Legacy Banner */
+.legacy-banner {
+  padding: 1rem 1.5rem;
+  background: linear-gradient(135deg, rgba(249, 115, 22, 0.1) 0%, rgba(239, 68, 68, 0.1) 100%);
+  border: 1px solid rgba(249, 115, 22, 0.3);
+  border-radius: 8px;
+  margin-bottom: 2rem;
+}
+
+.legacy-banner h4 {
+  margin: 0 0 0.5rem 0;
+  color: #f97316;
+  font-weight: 600;
+}
+
+.legacy-banner p {
+  margin: 0;
+  color: var(--vp-c-text-2);
+}
+
+.legacy-banner a {
+  color: var(--vp-c-brand-1);
+  font-weight: 500;
+}
+
+/* Improve readability */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.vp-doc h4,
+.vp-doc h5,
+.vp-doc h6 {
+  letter-spacing: -0.01em;
+}
+
+.vp-doc p,
+.vp-doc li {
+  line-height: 1.75;
+}
+
+/* Table Improvements */
+.vp-doc table {
+  display: table;
+  width: 100%;
+}
+
+.vp-doc th {
+  background-color: var(--vp-c-bg-soft);
+  font-weight: 600;
+}
+
+.vp-doc td,
+.vp-doc th {
+  padding: 0.75rem 1rem;
+}

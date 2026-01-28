@@ -4,55 +4,83 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 ## Project Overview
 
-This is the documentation site for **Nadi**, an error monitoring and exception tracking platform. The site is built with VuePress 1.9.9.
+This is the documentation site for **Nadi**, an error monitoring and exception tracking platform. The site is built with **VitePress 1.x** (migrated from VuePress 1.9.9 in v2.0).
 
 ## Development Commands
 
 ```bash
 # Start development server
-npm start
-
-# Alternative development command
-npm run docs:dev
+npm run dev
 
 # Build for production
-npm run docs:build
-```
+npm run build
 
-**Node 17+ Requirement:** Use the OpenSSL legacy provider flag:
-```bash
-NODE_OPTIONS=--openssl-legacy-provider npm start
+# Preview production build
+npm run preview
 ```
 
 ## Architecture
 
 ```
-.vuepress/
-├── config.js          # Main VuePress configuration (site metadata, plugins, nav, sidebar)
-├── 1.0.js             # Sidebar configuration for version 1.0
-├── plugins/           # Custom VuePress plugins
-├── theme/             # Custom theme extending default VuePress theme
-├── public/            # Static assets (images, PWA manifest)
-└── styles/
-    ├── palette.styl   # Color variables (accent: #048cfc)
-    └── index.styl     # Global styles
+.vitepress/
+├── config.ts              # Main VitePress configuration (site metadata, nav, sidebar)
+├── theme/
+│   ├── index.ts           # Custom theme setup
+│   ├── components/        # Custom Vue components (SdkTabs, VersionBadge, etc.)
+│   └── styles/
+│       └── custom.css     # Brand colors, typography, custom styles
 
-1.0/                   # Documentation content for version 1.0
-├── README.md          # Landing page
-├── introduction.md    # Platform overview
-├── installation-*.md  # Installation guides
-└── configuration-*.md # Configuration guides
+guide/                     # Getting Started documentation
+├── index.md               # Introduction
+├── quick-start.md         # Quick start guide
+├── architecture.md        # System architecture
+└── authentication.md      # API & App keys
+
+sdks/                      # SDK Documentation
+├── index.md               # SDK overview
+├── laravel/               # Laravel SDK (9 pages)
+├── php/                   # PHP Core SDK (5 pages)
+├── javascript/            # JavaScript SDK (11 pages + framework guides)
+└── wordpress/             # WordPress SDK (4 pages)
+
+shipper/                   # Shipper Agent Documentation
+├── index.md               # Overview
+├── installation.md        # Installation guide
+├── configuration.md       # Configuration reference
+├── deployment.md          # Production deployment
+└── troubleshooting.md     # Troubleshooting guide
+
+platform/                  # Platform Documentation
+├── index.md               # Platform overview
+├── dashboard/             # Dashboard guides
+├── rum/                   # Real User Monitoring
+├── alerts/                # Alerts and integrations
+└── teams/                 # Team management
+
+1.0/                       # Legacy documentation (archived)
+public/                    # Static assets (logo, favicon)
 ```
 
 ## Content Guidelines
 
-- Documentation lives in versioned folders (currently `1.0/`)
-- Sidebar navigation is configured in `.vuepress/1.0.js`
-- Add new pages to the sidebar config after creating markdown files
-- Use the existing installation/configuration naming patterns for new docs
+- Main documentation is in root-level folders (guide/, sdks/, etc.)
+- Legacy v1.0 docs are archived in `1.0/` with legacy banners
+- Sidebar navigation is configured in `.vitepress/config.ts`
+- Custom components available: `<SdkTabs>`, `<VersionBadge>`, `<ApiEndpoint>`, `<LegacyBanner>`
 
 ## Styling
 
-- Custom styles use Stylus (`.styl` files)
-- Color palette defined in `.vuepress/styles/palette.styl`
-- Font: Nunito
+- Custom styles in `.vitepress/theme/styles/custom.css`
+- Color palette evolved from #048cfc (brand-1: #0284c7, brand-2: #0ea5e9, brand-3: #38bdf8)
+- Primary font: Inter
+- Code font: JetBrains Mono
+- Fallback font: Nunito (brand continuity)
+
+## SDK Requirements
+
+| SDK | Package | Requirements |
+|-----|---------|--------------|
+| Laravel | `nadi-pro/nadi-laravel` | PHP 8.1+, Laravel 9+ |
+| PHP | `nadi-pro/nadi-php` | PHP 8.1+ |
+| WordPress | `nadi-pro/nadi-wordpress` | PHP 8.1+, WordPress 5.0+ |
+| JavaScript | `@nadi-pro/browser` | Modern browsers (ES2020+) |
