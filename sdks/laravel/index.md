@@ -30,16 +30,17 @@ This command will:
 3. Create the `storage/nadi/` directory for log files
 4. Download the latest shipper configuration from GitHub
 5. Prompt for your API credentials (can be skipped)
-6. Display Supervisord setup instructions
+6. Save `NADI_API_KEY` and `NADI_APP_KEY` to your `.env` file
+7. Display Supervisord setup instructions
 
 ### Interactive Credential Setup
 
 During installation, you'll be prompted to enter:
 
-- **API Key** - Your Sanctum token from your Nadi account
-- **App Key** - Your application identifier from Nadi
+- **API Key** - Create one at [API Tokens](https://nadi.pro/user/api-tokens)
+- **App Key** - Available on your application page (e.g., `https://nadi.pro/applications/<your-app-uuid>`)
 
-Press Enter to skip and configure later. Get your credentials at [https://nadi.pro](https://nadi.pro).
+Press Enter to skip and configure later.
 
 ### Installation Options
 
@@ -247,10 +248,10 @@ Don't report certain exceptions:
 # Install Nadi and setup shipper
 php artisan nadi:install
 
-# Test your Nadi configuration
+# Test the API connection
 php artisan nadi:test
 
-# Verify configuration and connectivity
+# Verify the App Key
 php artisan nadi:verify
 
 # Republish configuration

@@ -233,25 +233,21 @@ NADI_SAMPLING_RATE=0.1
 
 ## Testing Configuration
 
-Verify your configuration:
+Test the API connection:
+
+```bash
+php artisan nadi:test
+```
+
+This command sends a test request to the Nadi API to confirm your API Key is valid and the connection is working.
+
+Verify the App Key:
 
 ```bash
 php artisan nadi:verify
 ```
 
-This command validates:
-
-- Enabled status
-- Driver configuration
-- API credentials
-- Storage directory permissions
-- Sampling settings
-
-Test connectivity:
-
-```bash
-php artisan nadi:test
-```
+This command validates your App Key is correctly configured and recognized by Nadi.
 
 ## Next Steps
 

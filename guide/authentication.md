@@ -32,10 +32,10 @@ The **Application Key** identifies which application the error data belongs to. 
 2. Sign up for a new account or log in
 3. Complete the onboarding process
 
-### Step 2: Find Your API Key
+### Step 2: Create Your API Key
 
-1. Click your profile icon in the top right
-2. Navigate to **Settings** → **API Tokens**
+1. Go to [API Tokens](https://nadi.pro/user/api-tokens)
+2. Create a new API token
 3. Copy your API Key
 
 ::: warning Keep Your API Key Secret
@@ -46,7 +46,8 @@ Your API Key has full access to your account. Never commit it to version control
 
 1. From the dashboard, click **New Application**
 2. Enter your application name and details
-3. Copy the generated **Application Key**
+3. Open the application page (e.g., `https://nadi.pro/applications/<your-app-uuid>`)
+4. Copy the **Application Key** from the application details
 
 ### Step 4: Configure Your Environment
 
@@ -128,7 +129,7 @@ nadi:
 
 If your API Key is compromised:
 
-1. Go to **Settings** → **API Tokens**
+1. Go to [API Tokens](https://nadi.pro/user/api-tokens)
 2. Click **Regenerate API Key**
 3. Update all Shipper configurations with the new key
 4. Restart Shipper instances

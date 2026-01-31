@@ -11,8 +11,9 @@ Get Nadi up and running in your application in under 5 minutes.
 ## Step 1: Get Your Keys
 
 1. Log in to the [Nadi Dashboard](https://nadi.pro)
-2. Create a new application or select an existing one
-3. Copy your **API Key** and **Application Key**
+2. Create your **API Key** at [API Tokens](https://nadi.pro/user/api-tokens)
+3. Create a new application or select an existing one
+4. Copy your **Application Key** from the application page details (e.g., `https://nadi.pro/applications/<your-app-uuid>`)
 
 ::: info
 Your API Key authenticates requests to the Nadi API. Your Application Key identifies which application the errors belong to.
@@ -27,6 +28,7 @@ Choose the SDK for your platform:
 ```bash [Laravel]
 composer require nadi-pro/nadi-laravel
 php artisan nadi:install
+# During installation, you will be prompted for your API Key and App Key
 ```
 
 ```bash [PHP]
@@ -117,7 +119,21 @@ nadi:
 
 ## Step 5: Test the Integration
 
-Trigger a test error to verify everything is working:
+### Laravel
+
+Use the built-in Artisan commands to verify your setup:
+
+```bash
+# Test the API connection
+php artisan nadi:test
+
+# Verify the App Key
+php artisan nadi:verify
+```
+
+### Trigger a Test Error
+
+You can also trigger a test error to verify end-to-end error tracking:
 
 ::: code-group
 
