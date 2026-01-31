@@ -74,35 +74,38 @@ Create `/etc/supervisor/conf.d/shipper.conf`:
 
 ```ini
 [program:shipper]
-command=/usr/local/bin/shipper --config=/opt/nadi-pro/shipper/nadi.yaml --record
-user=shipper
+command=/usr/local/bin/shipper --config="/opt/nadi-pro/shipper/nadi.yaml" --record
+directory=/
+redirect_stderr=true
 autostart=true
 autorestart=true
-redirect_stderr=true
-stdout_logfile=/var/log/shipper.log
-stopwaitsecs=30
+user=shipper
+numprocs=1
+process_name=%(program_name)s_%(process_num)s
 ```
 
 ### Multiple Applications
 
 ```ini
 [program:shipper-app1]
-command=/usr/local/bin/shipper --config=/opt/nadi-pro/shipper/app1.yaml --record
-user=shipper
+command=/usr/local/bin/shipper --config="/opt/nadi-pro/shipper/app1.yaml" --record
+directory=/
+redirect_stderr=true
 autostart=true
 autorestart=true
-redirect_stderr=true
-stdout_logfile=/var/log/shipper-app1.log
-stopwaitsecs=30
+user=shipper
+numprocs=1
+process_name=%(program_name)s_%(process_num)s
 
 [program:shipper-app2]
-command=/usr/local/bin/shipper --config=/opt/nadi-pro/shipper/app2.yaml --record
-user=shipper
+command=/usr/local/bin/shipper --config="/opt/nadi-pro/shipper/app2.yaml" --record
+directory=/
+redirect_stderr=true
 autostart=true
 autorestart=true
-redirect_stderr=true
-stdout_logfile=/var/log/shipper-app2.log
-stopwaitsecs=30
+user=shipper
+numprocs=1
+process_name=%(program_name)s_%(process_num)s
 ```
 
 ### Manage with supervisord
