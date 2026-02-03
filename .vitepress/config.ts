@@ -121,6 +121,41 @@ export default withMermaid(defineConfig({
             { text: 'Error Tracking', link: '/sdks/wordpress/error-tracking' },
             { text: 'WooCommerce (Coming Soon)', link: '/sdks/wordpress/woocommerce' }
           ]
+        },
+        {
+          text: 'CakePHP',
+          collapsed: true,
+          items: [
+            { text: 'Installation', link: '/sdks/cakephp/' }
+          ]
+        },
+        {
+          text: 'CodeIgniter',
+          collapsed: true,
+          items: [
+            { text: 'Installation', link: '/sdks/codeigniter/' }
+          ]
+        },
+        {
+          text: 'Yii 3',
+          collapsed: true,
+          items: [
+            { text: 'Installation', link: '/sdks/yii/' }
+          ]
+        },
+        {
+          text: 'Yii 2',
+          collapsed: true,
+          items: [
+            { text: 'Installation', link: '/sdks/yii2/' }
+          ]
+        },
+        {
+          text: 'Drupal',
+          collapsed: true,
+          items: [
+            { text: 'Installation', link: '/sdks/drupal/' }
+          ]
         }
       ],
       '/shipper/': [

@@ -10,6 +10,11 @@ Nadi provides official SDKs for multiple platforms, making it easy to integrate 
 | [PHP](/sdks/php/) | `nadi-pro/nadi-php` | PHP 8.1+ | Stable |
 | [WordPress](/sdks/wordpress/) | `nadi-pro/nadi-wordpress` | PHP 8.1+, WP 5.0+ | Stable |
 | [JavaScript](/sdks/javascript/) | `@nadi-pro/browser` | Modern browsers | Stable |
+| [CakePHP](/sdks/cakephp/) | `nadi-pro/nadi-cakephp` | PHP 8.1+, CakePHP 4.5+/5.x | Stable |
+| [CodeIgniter](/sdks/codeigniter/) | `nadi-pro/nadi-codeigniter` | PHP 8.1+, CodeIgniter 4.3+ | Stable |
+| [Yii 3](/sdks/yii/) | `nadi-pro/nadi-yii` | PHP 8.1+, Yii 3 | Stable |
+| [Yii 2](/sdks/yii2/) | `nadi-pro/nadi-yii2` | PHP 8.1+, Yii 2.0.45+ | Stable |
+| [Drupal](/sdks/drupal/) | `nadi-pro/nadi-drupal` | PHP 8.1+, Drupal 10.1+/11 | Stable |
 
 ## Choosing an SDK
 
@@ -71,6 +76,84 @@ npm install @nadi-pro/browser
 ```
 
 [JavaScript SDK Documentation →](/sdks/javascript/)
+
+### CakePHP Applications
+
+Use the **CakePHP SDK** for CakePHP applications:
+
+- Plugin-based integration
+- Automatic exception capturing
+- CakePHP-specific context (controllers, actions)
+- Cake console commands for setup and testing
+
+```bash
+composer require nadi-pro/nadi-cakephp
+cake nadi:install
+```
+
+[CakePHP SDK Documentation →](/sdks/cakephp/)
+
+### CodeIgniter Applications
+
+Use the **CodeIgniter SDK** for CodeIgniter 4 applications:
+
+- Service and filter-based integration
+- Automatic exception capturing
+- CodeIgniter-specific context (controllers, methods)
+- Spark commands for setup and testing
+
+```bash
+composer require nadi-pro/nadi-codeigniter
+php spark nadi:install
+```
+
+[CodeIgniter SDK Documentation →](/sdks/codeigniter/)
+
+### Yii 3 Applications
+
+Use the **Yii 3 SDK** for Yii 3 applications:
+
+- DI container integration
+- Middleware-based exception capturing
+- OpenTelemetry support
+- Yii-specific context
+
+```bash
+composer require nadi-pro/nadi-yii
+```
+
+[Yii 3 SDK Documentation →](/sdks/yii/)
+
+### Yii 2 Applications
+
+Use the **Yii 2 SDK** for Yii 2 applications:
+
+- Component-based integration
+- Bootstrap integration for automatic setup
+- Yii 2-specific context (controllers, actions)
+- Console application support
+
+```bash
+composer require nadi-pro/nadi-yii2
+```
+
+[Yii 2 SDK Documentation →](/sdks/yii2/)
+
+### Drupal Sites
+
+Use the **Drupal SDK** for Drupal sites:
+
+- Module-based installation
+- Admin UI for configuration
+- Drupal-specific context (routes, services)
+- Drush commands for setup and testing
+
+```bash
+composer require nadi-pro/nadi-drupal
+drush en nadi
+```
+
+[Drupal SDK Documentation →](/sdks/drupal/)
 
 ## Core Concepts
 
@@ -148,3 +231,8 @@ Choose the SDK for your platform:
 - [PHP SDK](/sdks/php/) - Framework-agnostic PHP client
 - [JavaScript SDK](/sdks/javascript/) - Browser error tracking
 - [WordPress SDK](/sdks/wordpress/) - WordPress plugin
+- [CakePHP SDK](/sdks/cakephp/) - CakePHP integration
+- [CodeIgniter SDK](/sdks/codeigniter/) - CodeIgniter 4 integration
+- [Yii 3 SDK](/sdks/yii/) - Yii 3 integration
+- [Yii 2 SDK](/sdks/yii2/) - Yii 2 integration
+- [Drupal SDK](/sdks/drupal/) - Drupal module
