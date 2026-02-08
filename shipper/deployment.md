@@ -197,7 +197,7 @@ data:
     nadi:
       endpoint: https://nadi.pro/api/
       apiKey: ${NADI_API_KEY}
-      token: ${NADI_APP_KEY}
+      appKey: ${NADI_APP_KEY}
       storage: /var/log/nadi
 ```
 

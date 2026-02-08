@@ -63,7 +63,7 @@ Edit the configuration file:
 nadi:
   endpoint: https://nadi.pro/api/
   apiKey: your-api-key
-  token: your-application-key
+  appKey: your-application-key
   storage: /var/log/nadi
 ```
 

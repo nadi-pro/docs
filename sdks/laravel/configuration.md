@@ -184,7 +184,7 @@ If you skipped credentials during installation, update `storage/nadi/nadi.yaml`:
 nadi:
   endpoint: https://api.nadi.pro
   apiKey: your-api-key-here
-  token: your-app-key-here
+  appKey: your-app-key-here
   storage: /path/to/project/storage/nadi
 ```
 
@@ -194,7 +194,7 @@ nadi:
 | --------------- | ---------------------------------- | ----------------------- |
 | `endpoint`      | Nadi API endpoint                  | `https://nadi.pro/api/` |
 | `apiKey`        | API authentication key             | -                       |
-| `token`         | Application identifier             | -                       |
+| `appKey`        | Application identifier             | -                       |
 | `storage`       | Directory to monitor for log files | `/var/log/nadi`         |
 | `checkInterval` | How often to check for new files   | `5s`                    |
 | `maxTries`      | Maximum retry attempts             | `3`                     |

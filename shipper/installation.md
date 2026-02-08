@@ -165,7 +165,7 @@ Edit the configuration file:
 ```yaml
 nadi:
   apiKey: your-api-key
-  token: your-application-key
+  appKey: your-application-key
   storage: /var/log/nadi
 ```
 

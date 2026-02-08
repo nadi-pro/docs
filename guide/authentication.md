@@ -120,7 +120,7 @@ Configure keys in `nadi.yaml`:
 ```yaml
 nadi:
   apiKey: nadi_api_xxxxxxxxxxxxx
-  token: nadi_app_xxxxxxxxxxxxx  # This is your App Key
+  appKey: nadi_app_xxxxxxxxxxxxx
 ```
 
 ## Key Rotation

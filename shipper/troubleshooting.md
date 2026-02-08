@@ -176,7 +176,7 @@ sudo yum update ca-certificates
 1. Verify application key:
    ```yaml
    nadi:
-     token: your-app-key
+     appKey: your-app-key
    ```
 
 2. Check application exists in Nadi dashboard

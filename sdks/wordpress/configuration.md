@@ -127,7 +127,7 @@ The Shipper settings are stored in `config/nadi.yaml` within the plugin director
 ```yaml
 nadi:
   apiKey: "your-api-key"
-  token: "your-application-key"
+  appKey: "your-application-key"
   endpoint: "https://nadi.pro/api/"
   accept: "application/vnd.nadi.v1+json"
   storage: "/path/to/wp-content/plugins/nadi-wordpress/log"

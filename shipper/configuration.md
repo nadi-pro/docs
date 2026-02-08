@@ -31,8 +31,8 @@ nadi:
   # Your Nadi API key (required)
   apiKey: your-api-key-here
 
-  # Your application token/key (required)
-  token: your-application-key-here
+  # Your application key (required)
+  appKey: your-application-key-here
 
   #--------------------------------------------------------------------------
   # Storage Configuration
@@ -93,13 +93,13 @@ nadi:
 
 Get your API key from [nadi.pro](https://nadi.pro) → Settings → API Tokens.
 
-### Application Token
+### Application Key
 
 Your application key to identify the project:
 
 ```yaml
 nadi:
-  token: nadi_app_xxxxxxxxxxxxxxxxxxxxx
+  appKey: nadi_app_xxxxxxxxxxxxxxxxxxxxx
 ```
 
 Get your app key from the application settings in Nadi.
@@ -215,7 +215,7 @@ Each app needs:
 # /etc/nadi/app1.yaml
 nadi:
   apiKey: your-api-key
-  token: app1-token
+  appKey: app1-key
   storage: /var/log/nadi/app1
   trackerFile: tracker-app1.json
 ```
@@ -226,7 +226,7 @@ nadi:
 # /etc/nadi/app2.yaml
 nadi:
   apiKey: your-api-key
-  token: app2-token
+  appKey: app2-key
   storage: /var/log/nadi/app2
   trackerFile: tracker-app2.json
 ```
@@ -237,7 +237,7 @@ Override config with environment variables:
 
 ```bash
 export NADI_API_KEY=your-api-key
-export NADI_TOKEN=your-app-key
+export NADI_APP_KEY=your-app-key
 export NADI_STORAGE=/var/log/nadi
 
 shipper --record
@@ -246,7 +246,7 @@ shipper --record
 | Variable | Config Key |
 |----------|------------|
 | `NADI_API_KEY` | `nadi.apiKey` |
-| `NADI_TOKEN` | `nadi.token` |
+| `NADI_APP_KEY` | `nadi.appKey` |
 | `NADI_STORAGE` | `nadi.storage` |
 | `NADI_ENDPOINT` | `nadi.endpoint` |
 
