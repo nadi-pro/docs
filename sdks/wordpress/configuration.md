@@ -8,11 +8,10 @@ Complete configuration reference for the Nadi WordPress plugin.
 
 Navigate to **Settings** → **Nadi** to configure:
 
-- API Key
-- Application Key
-- Environment
-- Error levels
-- Transporter settings
+- **Credentials** — API Key and Application Key
+- **Shipper** — Shipper binary settings (connection, storage, performance, retry, security, monitoring)
+- **Sampling** — Sampling strategy and rate
+- **Status** — Health checks and test connection
 
 ### wp-config.php
 
@@ -54,21 +53,63 @@ define('NADI_ENVIRONMENT', 'production');
 define('NADI_RELEASE', '1.0.0');
 ```
 
-### Transporter Settings
+### Shipper Configuration
 
-```php
-// Transport method: 'file' or 'http'
-define('NADI_TRANSPORTER', 'file');
+The Shipper is configured via `config/nadi.yaml` in the plugin directory. All settings are manageable from the **Shipper** tab in admin settings.
 
-// File transporter: log directory
-define('NADI_STORAGE_PATH', '/var/log/nadi');
+```yaml
+nadi:
+  # API credentials
+  apiKey: "your-sanctum-token"
+  token: "your-application-key"
 
-// HTTP transporter: endpoint
-define('NADI_ENDPOINT', 'https://nadi.pro/api/');
+  # Connection
+  endpoint: "https://nadi.pro/api/"
+  accept: "application/vnd.nadi.v1+json"
 
-// HTTP transporter: timeout (seconds)
-define('NADI_TIMEOUT', 5);
+  # Storage
+  storage: "/path/to/wp-content/plugins/nadi-wordpress/log"
+  trackerFile: "tracker.json"
+  filePattern: "*.json"
+  deadLetterDir: ""
+
+  # Performance
+  workers: 4
+  compress: false
+  persistent: false
+
+  # Retry
+  maxTries: 3
+  timeout: "1m"
+  checkInterval: "5s"
+
+  # Security (Beta)
+  tlsCACert: ""
+  tlsSkipVerify: false
+
+  # Monitoring (Beta)
+  healthCheckAddr: ""
+  metricsEnabled: false
 ```
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| `endpoint` | string | `https://nadi.pro/api/` | Nadi API endpoint |
+| `accept` | string | `application/vnd.nadi.v1+json` | HTTP Accept header |
+| `storage` | string | Plugin's `log/` dir | Log file directory |
+| `trackerFile` | string | `tracker.json` | Sent logs tracker |
+| `filePattern` | string | `*.json` | Log file glob pattern |
+| `deadLetterDir` | string | _(empty)_ | Failed delivery directory |
+| `workers` | int | `4` | Concurrent workers |
+| `compress` | bool | `false` | Gzip compression |
+| `persistent` | bool | `false` | Persistent HTTP connections |
+| `maxTries` | int | `3` | Max retry attempts |
+| `timeout` | string | `1m` | Request timeout |
+| `checkInterval` | string | `5s` | New log check interval |
+| `tlsCACert` | string | _(empty)_ | Custom TLS CA cert path |
+| `tlsSkipVerify` | bool | `false` | Skip TLS verification |
+| `healthCheckAddr` | string | _(empty)_ | Health check address |
+| `metricsEnabled` | bool | `false` | Prometheus metrics |
 
 ### Error Level Settings
 
@@ -92,12 +133,19 @@ define('NADI_CAPTURE_DEPRECATED', false);
 ### Sampling Settings
 
 ```php
-// Sampling strategy: fixed_rate, dynamic_rate, interval
+// Sampling strategy: fixed_rate, dynamic_rate, interval, peak_load
 define('NADI_SAMPLING_STRATEGY', 'fixed_rate');
 
 // Fixed rate sampling (0.0 - 1.0)
 define('NADI_SAMPLING_RATE', 1.0);
 ```
+
+| Strategy | Description |
+|----------|-------------|
+| `fixed_rate` | Fixed percentage of events (default: 10%) |
+| `dynamic_rate` | Adjusts rate based on system load |
+| `interval` | Captures one event per time interval |
+| `peak_load` | Adjusts during high traffic periods |
 
 ### Privacy Settings
 
@@ -216,15 +264,18 @@ add_filter('nadi_enabled', function($enabled) {
 
 ### Test Configuration
 
-1. Go to **Settings** → **Nadi**
-2. Click **Test Connection**
-3. Check for success message
+1. Go to **Settings** → **Nadi** → **Status** tab
+2. Verify all checklist items are green
+3. Click **Test Connection**
+4. Check the [Nadi dashboard](https://nadi.pro/dashboard) within 1-2 minutes
 
 ### CLI Verification
 
 ```bash
 wp eval "var_dump(defined('NADI_API_KEY'));"
 wp eval "var_dump(defined('NADI_APP_KEY'));"
+wp option get nadi_api_key
+wp option get nadi_application_key
 ```
 
 ### Debug Mode
@@ -237,33 +288,7 @@ define('NADI_DEBUG', true);
 
 Check `wp-content/debug.log` for Nadi messages.
 
-## Troubleshooting
-
-### Settings Not Saving
-
-1. Check file permissions on options
-2. Verify no plugin conflicts
-3. Check for JavaScript errors
-
-### Constants Not Working
-
-1. Ensure defined before `wp-settings.php` is loaded
-2. Check for typos in constant names
-3. Verify `wp-config.php` syntax
-
-### Connection Errors
-
-1. Verify API key is correct
-2. Check firewall/security plugins
-3. Test endpoint connectivity
-
-```php
-// Test connectivity
-$response = wp_remote_get('https://nadi.pro/api/health');
-var_dump(wp_remote_retrieve_response_code($response));
-```
-
 ## Next Steps
 
 - [Error Tracking](/sdks/wordpress/error-tracking) - Capture and report errors
-- [WooCommerce](/sdks/wordpress/woocommerce) - WooCommerce integration
+- [Production Setup](/sdks/wordpress/production-setup) - Cron, permissions, and security

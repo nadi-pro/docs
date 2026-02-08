@@ -34,9 +34,9 @@ wp plugin install https://github.com/nadi-pro/nadi-wordpress/releases/latest/dow
 ### Admin Interface
 
 1. Go to **Settings** → **Nadi**
-2. Enter your **API Key**
-3. Enter your **Application Key**
-4. Click **Save Changes**
+2. In the **Credentials** tab, enter your **API Key** and **Application Key**
+3. Click **Save Changes**
+4. Go to the **Status** tab to verify setup
 
 ### wp-config.php
 
@@ -52,7 +52,13 @@ define('NADI_ENVIRONMENT', 'production');
 define('NADI_ENABLED', true);
 ```
 
-## Basic Usage
+## How It Works
+
+1. Exceptions are captured by PHP's exception handler
+2. Exception data (stack trace, context, metrics) is written as a JSON file to the `log/` directory
+3. A WordPress cron job runs every minute and triggers the Shipper binary
+4. The Shipper binary reads pending JSON logs and sends them to the Nadi API
+5. Errors appear in your [Nadi dashboard](https://nadi.pro/dashboard)
 
 ### Automatic Error Capturing
 
@@ -87,9 +93,11 @@ if (function_exists('nadi_capture_message')) {
 
 ## Test Connection
 
-1. Go to **Settings** → **Nadi**
+1. Go to **Settings** → **Nadi** → **Status** tab
 2. Click **Test Connection**
-3. Check the Nadi dashboard for the test error
+3. A test exception is written to the log directory
+4. The Shipper will send it to Nadi on the next cron run (within 1 minute)
+5. Check the [Nadi dashboard](https://nadi.pro/dashboard) for the test error
 
 ## What's Captured
 
@@ -103,17 +111,28 @@ if (function_exists('nadi_capture_message')) {
 | User | Logged-in user (if any) |
 | Database | Query errors |
 
+## Settings Tabs
+
+The settings page (**Settings** → **Nadi**) has 4 tabs:
+
+| Tab | Description |
+|-----|-------------|
+| **Credentials** | API Key and Application Key |
+| **Shipper** | Shipper binary configuration (connection, storage, performance, retry, security, monitoring) |
+| **Sampling** | Sampling strategy and rate configuration |
+| **Status** | Health checks, shipper installation, test connection |
+
 ## Features
 
 ### Error Filtering
 
-The plugin automatically filters:
+The plugin filters sensitive data from captured errors:
 
-- Deprecated notices (configurable)
-- Strict standards warnings
-- Selected error levels
+- Hidden request headers (e.g., `Authorization`)
+- Hidden parameters (e.g., `password`, `password_confirmation`)
+- Hidden response parameters
 
-Configure in **Settings** → **Nadi** → **Error Levels**.
+Configure in **Settings** → **Nadi** admin page.
 
 ### User Identification
 
@@ -145,25 +164,6 @@ Errors include context about active plugins and themes:
     ]
   }
 }
-```
-
-## Transporters
-
-### File Transporter (Recommended)
-
-Writes errors to log files for Shipper to process:
-
-```php
-define('NADI_TRANSPORTER', 'file');
-define('NADI_STORAGE_PATH', '/var/log/nadi');
-```
-
-### HTTP Transporter
-
-Sends errors directly via HTTP:
-
-```php
-define('NADI_TRANSPORTER', 'http');
 ```
 
 ## Hooks and Filters
@@ -220,4 +220,4 @@ add_filter('nadi_should_capture', function($should_capture, $error) {
 
 - [Configuration](/sdks/wordpress/configuration) - Full configuration options
 - [Error Tracking](/sdks/wordpress/error-tracking) - Advanced error tracking
-- [WooCommerce](/sdks/wordpress/woocommerce) - WooCommerce integration
+- [Production Setup](/sdks/wordpress/production-setup) - Cron, permissions, and security
