@@ -1,294 +1,152 @@
 # WordPress Configuration
 
-Complete configuration reference for the Nadi WordPress plugin.
+All Nadi settings are configured from the WordPress admin interface at **Settings** → **Nadi**.
 
-## Configuration Methods
+The settings page has 4 tabs: **Credentials**, **Shipper**, **Sampling**, and **Status**.
 
-### Admin Interface
+## Credentials Tab
 
-Navigate to **Settings** → **Nadi** to configure:
+Enter your API credentials to connect the plugin to your Nadi account.
 
-- **Credentials** — API Key and Application Key
-- **Shipper** — Shipper binary settings (connection, storage, performance, retry, security, monitoring)
-- **Sampling** — Sampling strategy and rate
-- **Status** — Health checks and test connection
+![Credentials Tab](/images/wordpress/credentials-tab.png)
 
-### wp-config.php
+| Field | Description |
+|-------|-------------|
+| **API Key** | Your Sanctum personal access token for authentication. [Get your API key](https://nadi.pro/user/api-tokens) |
+| **Application Key** | Your application identifier token from the [Nadi dashboard](https://nadi.pro/dashboard) |
 
-Define constants in `wp-config.php` for programmatic configuration:
+## Shipper Tab
 
-```php
-<?php
-// Required
-define('NADI_API_KEY', 'your-api-key');
-define('NADI_APP_KEY', 'your-application-key');
-```
+Configure the Shipper binary that sends your exception logs to the Nadi API.
 
-::: tip Priority
-Constants in `wp-config.php` take precedence over admin settings.
+![Shipper Tab](/images/wordpress/shipper-tab.png)
+
+Settings are organized into 6 sections:
+
+### Connection
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| **Endpoint** | `https://nadi.pro/api/` | Nadi API endpoint URL |
+| **Accept Header** | `application/vnd.nadi.v1+json` | HTTP Accept header for API requests |
+
+### Storage
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| **Storage Path** | Plugin's `log/` directory | Directory where JSON log files are written |
+| **Tracker File** | `tracker.json` | File used to track which logs have been sent |
+| **File Pattern** | `*.json` | Glob pattern for log files to process |
+| **Dead Letter Dir** | _(empty)_ | Directory for logs that failed to deliver |
+
+### Performance
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| **Workers** | `4` | Number of concurrent workers for sending logs |
+| **Compress** | Off | Enable gzip compression for API requests |
+| **Persistent** | Off | Keep HTTP connections alive between requests |
+
+### Retry
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| **Max Tries** | `3` | Maximum retry attempts per log batch |
+| **Timeout** | `1m` | Request timeout (e.g., `30s`, `1m`, `5m`) |
+| **Check Interval** | `5s` | Interval between checking for new logs |
+
+### Security (Beta)
+
+| Field | Default | Description |
+|-------|---------|-------------|
+| **TLS CA Cert** | _(empty)_ | Path to custom TLS CA certificate |
+| **TLS Skip Verify** | Off | Skip TLS certificate verification |
+
+::: warning
+Do not enable **TLS Skip Verify** in production. This is for development/testing only.
 :::
 
-## Configuration Options
+### Monitoring (Beta)
 
-### Required Settings
+| Field | Default | Description |
+|-------|---------|-------------|
+| **Health Check Address** | _(empty)_ | Address for health check endpoint |
+| **Metrics Enabled** | Off | Enable Prometheus metrics export |
 
-```php
-// Your Nadi API key
-define('NADI_API_KEY', 'your-api-key');
+## Sampling Tab
 
-// Your application key
-define('NADI_APP_KEY', 'your-application-key');
-```
+Control the volume of captured events using sampling strategies.
 
-### Core Settings
+![Sampling Tab](/images/wordpress/sampling-tab.png)
 
-```php
-// Enable/disable error capturing
-define('NADI_ENABLED', true);
+| Field | Default | Description |
+|-------|---------|-------------|
+| **Sampling Strategy** | Fixed Rate | Strategy for deciding which events to capture |
+| **Sampling Rate** | `0.1` (10%) | Percentage of events to capture (0.0 to 1.0) |
+| **Base Rate** | `0.05` (5%) | Base rate for dynamic strategies |
+| **Load Factor** | `1.0` | Adjust rate based on system load |
+| **Interval Seconds** | `60` | Time interval for interval-based sampling |
 
-// Environment name
-define('NADI_ENVIRONMENT', 'production');
+### Available Strategies
 
-// Release/version identifier
-define('NADI_RELEASE', '1.0.0');
-```
+| Strategy | Description |
+|----------|-------------|
+| **Fixed Rate** | Captures a fixed percentage of events. Set **Sampling Rate** to `1.0` to capture all events. |
+| **Dynamic Rate** | Automatically adjusts capture rate based on system load. Uses **Base Rate** and **Load Factor**. |
+| **Interval** | Captures one event per time interval. Configure with **Interval Seconds**. |
+| **Peak Load** | Adjusts during high traffic periods. |
 
-### Shipper Configuration
+::: tip Development
+Set **Sampling Rate** to `1.0` during development to capture all events. For production, `0.1` (10%) is a good default.
+:::
 
-The Shipper is configured via `config/nadi.yaml` in the plugin directory. All settings are manageable from the **Shipper** tab in admin settings.
+## Status Tab
+
+Check plugin health and test your connection.
+
+![Status Tab](/images/wordpress/status-tab.png)
+
+The status checklist shows:
+
+- **Shipper binary installed** — whether the Go binary is present in `bin/`
+- **API Key configured** — whether an API key has been set
+- **Application Key configured** — whether an application key has been set
+
+### Test Connection
+
+Click **Test Connection** to send a test exception to verify your setup. The test exception will be written to the log directory and sent to Nadi on the next cron run (within 1 minute).
+
+### Install Shipper
+
+If the Shipper binary is missing, an **Install Shipper** button will appear. Click it to download and install the binary automatically.
+
+## Configuration File
+
+The Shipper settings are stored in `config/nadi.yaml` within the plugin directory. When you save settings from the Shipper tab, this file is updated automatically.
 
 ```yaml
 nadi:
-  # API credentials
-  apiKey: "your-sanctum-token"
+  apiKey: "your-api-key"
   token: "your-application-key"
-
-  # Connection
   endpoint: "https://nadi.pro/api/"
   accept: "application/vnd.nadi.v1+json"
-
-  # Storage
   storage: "/path/to/wp-content/plugins/nadi-wordpress/log"
   trackerFile: "tracker.json"
   filePattern: "*.json"
   deadLetterDir: ""
-
-  # Performance
   workers: 4
   compress: false
   persistent: false
-
-  # Retry
   maxTries: 3
   timeout: "1m"
   checkInterval: "5s"
-
-  # Security (Beta)
   tlsCACert: ""
   tlsSkipVerify: false
-
-  # Monitoring (Beta)
   healthCheckAddr: ""
   metricsEnabled: false
 ```
 
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| `endpoint` | string | `https://nadi.pro/api/` | Nadi API endpoint |
-| `accept` | string | `application/vnd.nadi.v1+json` | HTTP Accept header |
-| `storage` | string | Plugin's `log/` dir | Log file directory |
-| `trackerFile` | string | `tracker.json` | Sent logs tracker |
-| `filePattern` | string | `*.json` | Log file glob pattern |
-| `deadLetterDir` | string | _(empty)_ | Failed delivery directory |
-| `workers` | int | `4` | Concurrent workers |
-| `compress` | bool | `false` | Gzip compression |
-| `persistent` | bool | `false` | Persistent HTTP connections |
-| `maxTries` | int | `3` | Max retry attempts |
-| `timeout` | string | `1m` | Request timeout |
-| `checkInterval` | string | `5s` | New log check interval |
-| `tlsCACert` | string | _(empty)_ | Custom TLS CA cert path |
-| `tlsSkipVerify` | bool | `false` | Skip TLS verification |
-| `healthCheckAddr` | string | _(empty)_ | Health check address |
-| `metricsEnabled` | bool | `false` | Prometheus metrics |
-
-### Error Level Settings
-
-```php
-// PHP error types to capture
-define('NADI_ERROR_TYPES', E_ALL & ~E_NOTICE & ~E_DEPRECATED);
-
-// Capture fatal errors
-define('NADI_CAPTURE_FATAL', true);
-
-// Capture warnings
-define('NADI_CAPTURE_WARNINGS', true);
-
-// Capture notices
-define('NADI_CAPTURE_NOTICES', false);
-
-// Capture deprecated notices
-define('NADI_CAPTURE_DEPRECATED', false);
-```
-
-### Sampling Settings
-
-```php
-// Sampling strategy: fixed_rate, dynamic_rate, interval, peak_load
-define('NADI_SAMPLING_STRATEGY', 'fixed_rate');
-
-// Fixed rate sampling (0.0 - 1.0)
-define('NADI_SAMPLING_RATE', 1.0);
-```
-
-| Strategy | Description |
-|----------|-------------|
-| `fixed_rate` | Fixed percentage of events (default: 10%) |
-| `dynamic_rate` | Adjusts rate based on system load |
-| `interval` | Captures one event per time interval |
-| `peak_load` | Adjusts during high traffic periods |
-
-### Privacy Settings
-
-```php
-// Capture user data
-define('NADI_CAPTURE_USER', true);
-
-// Capture IP address
-define('NADI_CAPTURE_IP', true);
-
-// Fields to scrub from POST data
-define('NADI_SCRUB_FIELDS', 'password,credit_card,cvv');
-```
-
-### WordPress-Specific Settings
-
-```php
-// Capture plugin errors
-define('NADI_CAPTURE_PLUGIN_ERRORS', true);
-
-// Capture theme errors
-define('NADI_CAPTURE_THEME_ERRORS', true);
-
-// Capture database errors
-define('NADI_CAPTURE_DB_ERRORS', true);
-
-// Capture AJAX errors
-define('NADI_CAPTURE_AJAX_ERRORS', true);
-
-// Capture REST API errors
-define('NADI_CAPTURE_REST_ERRORS', true);
-```
-
-## Environment-Specific Configuration
-
-### Development
-
-```php
-define('NADI_ENABLED', true);
-define('NADI_ENVIRONMENT', 'development');
-define('NADI_SAMPLING_RATE', 1.0);
-define('NADI_CAPTURE_NOTICES', true);
-define('NADI_CAPTURE_DEPRECATED', true);
-```
-
-### Staging
-
-```php
-define('NADI_ENABLED', true);
-define('NADI_ENVIRONMENT', 'staging');
-define('NADI_SAMPLING_RATE', 1.0);
-```
-
-### Production
-
-```php
-define('NADI_ENABLED', true);
-define('NADI_ENVIRONMENT', 'production');
-define('NADI_SAMPLING_RATE', 0.1);
-define('NADI_CAPTURE_NOTICES', false);
-define('NADI_CAPTURE_DEPRECATED', false);
-```
-
-## Multisite Configuration
-
-For WordPress Multisite, configure per-site or network-wide.
-
-### Network-Wide
-
-Add to `wp-config.php` (applies to all sites):
-
-```php
-define('NADI_API_KEY', 'your-api-key');
-define('NADI_APP_KEY', 'your-network-app-key');
-```
-
-### Per-Site Configuration
-
-Use different app keys per site:
-
-```php
-// Network-wide API key
-define('NADI_API_KEY', 'your-api-key');
-
-// Per-site app keys (configure in admin)
-// Leave NADI_APP_KEY undefined to use admin settings
-```
-
-Configure each site's App Key through **Settings** → **Nadi**.
-
-## Filter Hooks
-
-### Custom Configuration
-
-```php
-add_filter('nadi_config', function($config) {
-    // Modify configuration
-    $config['environment'] = wp_get_environment_type();
-    return $config;
-});
-```
-
-### Dynamic Settings
-
-```php
-add_filter('nadi_enabled', function($enabled) {
-    // Disable for admins
-    if (current_user_can('administrator')) {
-        return false;
-    }
-    return $enabled;
-});
-```
-
-## Verification
-
-### Test Configuration
-
-1. Go to **Settings** → **Nadi** → **Status** tab
-2. Verify all checklist items are green
-3. Click **Test Connection**
-4. Check the [Nadi dashboard](https://nadi.pro/dashboard) within 1-2 minutes
-
-### CLI Verification
-
-```bash
-wp eval "var_dump(defined('NADI_API_KEY'));"
-wp eval "var_dump(defined('NADI_APP_KEY'));"
-wp option get nadi_api_key
-wp option get nadi_application_key
-```
-
-### Debug Mode
-
-Enable debug output:
-
-```php
-define('NADI_DEBUG', true);
-```
-
-Check `wp-content/debug.log` for Nadi messages.
-
 ## Next Steps
 
-- [Error Tracking](/sdks/wordpress/error-tracking) - Capture and report errors
+- [Error Tracking](/sdks/wordpress/error-tracking) - Advanced error tracking
 - [Production Setup](/sdks/wordpress/production-setup) - Cron, permissions, and security

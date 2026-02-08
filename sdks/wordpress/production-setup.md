@@ -179,12 +179,7 @@ nadi:
 | `dynamic_rate` | auto | High-traffic — auto-adjusts based on load |
 | `interval` | 60s | Consistent — one event per interval |
 
-Configure via admin (**Settings** → **Nadi** → **Sampling** tab) or programmatically:
-
-```php
-update_option('nadi_sampling_strategy', 'fixed_rate');
-update_option('nadi_sampling_rate', 0.5); // 50%
-```
+Configure via **Settings** → **Nadi** → **Sampling** tab.
 
 ## Monitoring
 
