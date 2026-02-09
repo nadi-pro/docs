@@ -15,8 +15,8 @@ Sampling determines which events are captured and sent to Nadi. Use sampling to:
 
 ```php
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     'samplingStrategy' => 'fixed_rate',
     'samplingRate' => 0.1, // 10%
 ]);
@@ -163,8 +163,8 @@ use App\Sampling\BusinessHoursSampling;
 use Nadi\Sampling\SamplingManager;
 
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 ]);
 
 $samplingManager = $client->getSamplingManager();
@@ -267,8 +267,8 @@ $rate = match (getenv('APP_ENV')) {
 };
 
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     'samplingRate' => $rate,
 ]);
 ```

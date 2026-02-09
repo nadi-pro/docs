@@ -51,33 +51,29 @@ Your API Key has full access to your account. Never commit it to version control
 
 ### Step 4: Configure Your Environment
 
-Store your keys securely using environment variables:
+Store your keys in `nadi.yaml` for the Shipper agent:
 
-```bash
-# .env file (never commit to git)
-NADI_API_KEY=your-api-key-here
-NADI_APP_KEY=your-application-key-here
+```yaml
+# nadi.yaml (used by Shipper to authenticate with Nadi API)
+nadi:
+  apiKey: your-api-key-here
+  appKey: your-application-key-here
 ```
+
+See [Shipper Configuration](/shipper/configuration) for the full `nadi.yaml` reference.
 
 ## Using Keys in SDKs
 
 ### Laravel
 
-The Laravel SDK reads keys from your `.env` file:
+The Laravel SDK uses the `log` driver by default — no API credentials are needed in `.env`:
 
 ```env
-NADI_API_KEY=nadi_api_xxxxxxxxxxxxx
-NADI_APP_KEY=nadi_app_xxxxxxxxxxxxx
+NADI_ENABLED=true
+NADI_DRIVER=log
 ```
 
-Or configure in `config/nadi.php`:
-
-```php
-return [
-    'api_key' => env('NADI_API_KEY'),
-    'app_key' => env('NADI_APP_KEY'),
-];
-```
+Credentials are managed via `nadi.yaml` for the Shipper agent. See [Shipper Configuration](/shipper/configuration).
 
 ### PHP
 
@@ -85,10 +81,12 @@ return [
 use Nadi\Client;
 
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 ]);
 ```
+
+Credentials are managed via `nadi.yaml` for the Shipper agent. See [Shipper Configuration](/shipper/configuration).
 
 ### JavaScript
 
@@ -151,7 +149,7 @@ Application keys can be rotated per-application:
 
 ### Do
 
-- Store keys in environment variables
+- Store keys in `nadi.yaml` (secured with proper file permissions)
 - Use separate applications for different environments (dev, staging, prod)
 - Rotate keys periodically
 - Use secrets management in CI/CD

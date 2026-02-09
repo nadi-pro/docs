@@ -29,7 +29,7 @@ This command will:
 3. Create the `writable/nadi/` directory for log files
 4. Download the latest shipper configuration from GitHub
 5. Prompt for your API credentials (can be skipped)
-6. Save `NADI_API_KEY` and `NADI_APP_KEY` to your `.env` file
+6. Save credentials to `writable/nadi/nadi.yaml`
 7. Display Supervisord setup instructions
 
 ### Interactive Credential Setup
@@ -77,14 +77,16 @@ class Filters extends BaseFilters
 
 ## Configuration
 
-Add your credentials to `.env`:
+Add the following to your `.env`:
 
 ```env
 NADI_ENABLED=true
 NADI_DRIVER=log
-NADI_API_KEY=your-api-key
-NADI_APP_KEY=your-application-key
 ```
+
+::: tip Credentials in nadi.yaml
+API credentials (`apiKey` and `appKey`) are configured in `writable/nadi/nadi.yaml` for the Shipper agent, not in `.env`. See [Shipper Configuration](/shipper/configuration) for details.
+:::
 
 The configuration file `app/Config/Nadi.php` provides additional options:
 

@@ -52,8 +52,8 @@ npm install @nadi-pro/browser
 ::: code-group
 
 ```env [Laravel]
-NADI_API_KEY=your-api-key
-NADI_APP_KEY=your-application-key
+NADI_ENABLED=true
+NADI_DRIVER=log
 ```
 
 ```php [PHP]
@@ -61,8 +61,8 @@ NADI_APP_KEY=your-application-key
 use Nadi\Client;
 
 $client = new Client([
-    'apiKey' => 'your-api-key',
-    'appKey' => 'your-application-key',
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 ]);
 ```
 
@@ -81,6 +81,10 @@ Enter your API Key and Application Key
 Click "Save Changes"
 ```
 
+:::
+
+::: tip Credentials in nadi.yaml
+API credentials (`apiKey` and `appKey`) are configured in `nadi.yaml` for the Shipper agent, not in your SDK or `.env` file. See [Step 4](#step-4-install-shipper) below for details.
 :::
 
 ## Step 4: Install Shipper

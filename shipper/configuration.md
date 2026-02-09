@@ -233,6 +233,10 @@ nadi:
 
 ## Environment Variables
 
+::: info Overrides Only
+Environment variables are **overrides** for Shipper configuration. The primary configuration method is `nadi.yaml`. Use environment variables when you need to override values per-deployment without modifying the config file.
+:::
+
 Override config with environment variables:
 
 ```bash

@@ -48,8 +48,8 @@ Control which PHP errors are captured:
 
 ```php
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     'errorTypes' => E_ALL & ~E_NOTICE & ~E_DEPRECATED,
 ]);
 ```
@@ -247,8 +247,8 @@ class NadiClient
     {
         if (self::$instance === null) {
             self::$instance = new Client([
-                'apiKey' => getenv('NADI_API_KEY'),
-                'appKey' => getenv('NADI_APP_KEY'),
+                'transporter' => 'file',
+                'storagePath' => '/var/log/nadi',
             ]);
         }
 
@@ -266,8 +266,8 @@ NadiClient::getInstance()->captureException($e);
 // Container registration
 $container->singleton(Client::class, function () {
     return new Client([
-        'apiKey' => getenv('NADI_API_KEY'),
-        'appKey' => getenv('NADI_APP_KEY'),
+        'transporter' => 'file',
+        'storagePath' => '/var/log/nadi',
     ]);
 });
 

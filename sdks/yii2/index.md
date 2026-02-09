@@ -33,8 +33,6 @@ return [
             'class' => \Nadi\Yii2\NadiComponent::class,
             'enabled' => true,
             'driver' => 'log',
-            'apiKey' => getenv('NADI_API_KEY'),
-            'appKey' => getenv('NADI_APP_KEY'),
         ],
     ],
 ];
@@ -54,8 +52,6 @@ return [
             'class' => \Nadi\Yii2\NadiComponent::class,
             'enabled' => true,
             'driver' => 'log',
-            'apiKey' => getenv('NADI_API_KEY'),
-            'appKey' => getenv('NADI_APP_KEY'),
         ],
     ],
 ];
@@ -63,14 +59,16 @@ return [
 
 ## Configuration
 
-Add your credentials to `.env`:
+Add the following to your `.env`:
 
 ```env
 NADI_ENABLED=true
 NADI_DRIVER=log
-NADI_API_KEY=your-api-key
-NADI_APP_KEY=your-application-key
 ```
+
+::: tip Credentials in nadi.yaml
+API credentials (`apiKey` and `appKey`) are configured in `runtime/nadi/nadi.yaml` for the Shipper agent, not in `.env`. See [Shipper Configuration](/shipper/configuration) for details.
+:::
 
 Additional configuration options on the component:
 
@@ -79,8 +77,6 @@ Additional configuration options on the component:
     'class' => \Nadi\Yii2\NadiComponent::class,
     'enabled' => true,
     'driver' => 'log',
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
     'scrubFields' => [
         'password',
         'password_confirmation',

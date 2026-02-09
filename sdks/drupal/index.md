@@ -70,8 +70,6 @@ You can also configure Nadi via `settings.php` or environment variables:
 // sites/default/settings.php
 $config['nadi.settings']['enabled'] = TRUE;
 $config['nadi.settings']['driver'] = 'log';
-$config['nadi.settings']['api_key'] = getenv('NADI_API_KEY');
-$config['nadi.settings']['app_key'] = getenv('NADI_APP_KEY');
 ```
 
 Environment variables:
@@ -79,9 +77,11 @@ Environment variables:
 ```env
 NADI_ENABLED=true
 NADI_DRIVER=log
-NADI_API_KEY=your-api-key
-NADI_APP_KEY=your-application-key
 ```
+
+::: tip Credentials in nadi.yaml
+API credentials (`apiKey` and `appKey`) are configured in `nadi.yaml` for the Shipper agent, not in `.env` or `settings.php`. See [Shipper Configuration](/shipper/configuration) for details.
+:::
 
 ### Transport Drivers
 

@@ -8,19 +8,9 @@ Complete configuration reference for the PHP SDK.
 
 ```php
 $client = new Client([
-    'apiKey' => 'your-api-key',
-    'appKey' => 'your-app-key',
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     // ... other options
-]);
-```
-
-### Environment Variables
-
-```php
-// Automatically reads from environment
-$client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
 ]);
 ```
 
@@ -32,8 +22,8 @@ Create a `nadi.php` config file:
 <?php
 // config/nadi.php
 return [
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     'environment' => getenv('APP_ENV') ?: 'production',
     // ...
 ];
@@ -52,8 +42,12 @@ $client = new Client($config);
 
 | Option | Type | Description |
 |--------|------|-------------|
-| `apiKey` | string | Your Nadi API key |
-| `appKey` | string | Your application key |
+| `transporter` | string | Transport method: `file` (recommended) or `http` |
+| `storagePath` | string | Log directory path (for `file` transporter) |
+
+::: tip
+`apiKey` and `appKey` are only required when using the `http` transporter. For the recommended `file` transporter, credentials are configured in `nadi.yaml` for the Shipper agent.
+:::
 
 ### Core Options
 
@@ -215,19 +209,15 @@ $client = new Client($config);
 use Nadi\Client;
 
 $client = new Client([
-    // Required
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    // Transporter (recommended: file + Shipper)
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 
     // Environment
     'environment' => getenv('APP_ENV') ?: 'production',
     'release' => getenv('APP_VERSION') ?: '1.0.0',
     'serverName' => gethostname(),
     'enabled' => true,
-
-    // Transporter
-    'transporter' => 'file',
-    'storagePath' => '/var/log/nadi',
 
     // Sampling
     'samplingStrategy' => 'fixed_rate',
@@ -269,8 +259,8 @@ $client = new Client([
 
 ```php
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     'environment' => 'development',
     'samplingRate' => 1.0,
     'captureRequestBody' => true,
@@ -281,8 +271,8 @@ $client = new Client([
 
 ```php
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
     'environment' => 'production',
     'samplingRate' => 0.1,
     'captureRequestBody' => false,

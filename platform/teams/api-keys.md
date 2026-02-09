@@ -8,8 +8,10 @@ Manage authentication credentials for Nadi.
 
 Authenticates API requests (used by Shipper):
 
-```
-NADI_API_KEY=nadi_api_xxxxxxxxxxxxx
+```yaml
+# nadi.yaml
+nadi:
+  apiKey: nadi_api_xxxxxxxxxxxxx
 ```
 
 **Scope:** Account-level
@@ -19,8 +21,10 @@ NADI_API_KEY=nadi_api_xxxxxxxxxxxxx
 
 Identifies a specific project:
 
-```
-NADI_APP_KEY=nadi_app_xxxxxxxxxxxxx
+```yaml
+# nadi.yaml
+nadi:
+  appKey: nadi_app_xxxxxxxxxxxxx
 ```
 
 **Scope:** Project-level
@@ -68,7 +72,7 @@ Regenerating immediately invalidates the old key. Update all deployments first t
 
 #### Do
 
-- Store keys in environment variables
+- Store keys in `nadi.yaml` (secured with proper file permissions)
 - Use secrets management (Vault, AWS Secrets Manager)
 - Rotate keys periodically
 - Use different keys per environment
@@ -80,12 +84,13 @@ Regenerating immediately invalidates the old key. Update all deployments first t
 - Use production keys in development
 - Expose API keys in client-side code
 
-### Environment Variables
+### Shipper Configuration
 
-```bash
-# .env (never commit)
-NADI_API_KEY=nadi_api_xxxxxxxxxxxxx
-NADI_APP_KEY=nadi_app_xxxxxxxxxxxxx
+```yaml
+# nadi.yaml (never commit to version control)
+nadi:
+  apiKey: nadi_api_xxxxxxxxxxxxx
+  appKey: nadi_app_xxxxxxxxxxxxx
 ```
 
 ### Secrets Management

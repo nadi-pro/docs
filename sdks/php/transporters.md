@@ -24,12 +24,14 @@ The file transporter writes events to local log files. The Shipper agent then re
 
 ```php
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
     'transporter' => 'file',
     'storagePath' => '/var/log/nadi',
 ]);
 ```
+
+::: tip Credentials in nadi.yaml
+When using the `file` transporter, API credentials are configured in `nadi.yaml` for the Shipper agent, not in your application code. See [Shipper Configuration](/shipper/configuration) for details.
+:::
 
 ### Log File Format
 
@@ -173,8 +175,8 @@ use App\Nadi\QueueTransporter;
 $transporter = new QueueTransporter($redisConnection);
 
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 ]);
 
 $client->setTransporter($transporter);

@@ -12,8 +12,6 @@ After installation, the configuration file is located at `config/nadi.php`.
 | ------------------------ | -------------------- | ---------------------- |
 | `NADI_ENABLED`           | Enable/disable Nadi  | `true`                 |
 | `NADI_DRIVER`            | Transport driver     | `log`                  |
-| `NADI_API_KEY`           | Your Nadi API key    | -                      |
-| `NADI_APP_KEY`           | Your application key | -                      |
 | `NADI_ENDPOINT`          | API endpoint         | `https://api.nadi.pro` |
 | `NADI_STORAGE_PATH`      | Log file directory   | `storage/nadi`         |
 | `NADI_SAMPLING_STRATEGY` | Sampling strategy    | `fixed_rate`           |
@@ -34,7 +32,7 @@ NADI_STORAGE_PATH=storage/nadi
 
 ### HTTP Driver
 
-Sends data directly to the Nadi API over HTTP.
+Sends data directly to the Nadi API over HTTP. This is an alternative to the recommended log + Shipper approach.
 
 ```env
 NADI_DRIVER=http
@@ -42,6 +40,10 @@ NADI_API_KEY=your-sanctum-token
 NADI_APP_KEY=your-application-key
 NADI_ENDPOINT=https://api.nadi.pro
 ```
+
+::: warning HTTP Driver Only
+`NADI_API_KEY` and `NADI_APP_KEY` in `.env` are only needed when using the HTTP driver. For the recommended `log` driver, credentials are configured in `nadi.yaml` for the Shipper agent.
+:::
 
 ### OpenTelemetry Driver
 

@@ -42,8 +42,6 @@ return [
     'nadi' => [
         'enabled' => (bool) ($_ENV['NADI_ENABLED'] ?? true),
         'driver' => $_ENV['NADI_DRIVER'] ?? 'log',
-        'api_key' => $_ENV['NADI_API_KEY'] ?? '',
-        'app_key' => $_ENV['NADI_APP_KEY'] ?? '',
         'scrub_fields' => [
             'password',
             'password_confirmation',
@@ -74,14 +72,16 @@ $collector->middleware(OpenTelemetryMiddleware::class);
 
 ## Configuration
 
-Add your credentials to `.env`:
+Add the following to your `.env`:
 
 ```env
 NADI_ENABLED=true
 NADI_DRIVER=log
-NADI_API_KEY=your-api-key
-NADI_APP_KEY=your-application-key
 ```
+
+::: tip Credentials in nadi.yaml
+API credentials (`apiKey` and `appKey`) are configured in `runtime/nadi/nadi.yaml` for the Shipper agent, not in `.env`. See [Shipper Configuration](/shipper/configuration) for details.
+:::
 
 ## Shipper Setup
 

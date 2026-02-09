@@ -29,8 +29,8 @@ require_once 'vendor/autoload.php';
 use Nadi\Client;
 
 $client = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 ]);
 ```
 
@@ -65,21 +65,20 @@ $client->registerHandlers();
 
 ```php
 $client = new Client([
-    // Required
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    // Transporter (recommended: file + Shipper)
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 
     // Optional
     'environment' => getenv('APP_ENV') ?: 'production',
     'release' => getenv('APP_VERSION'),
-    'storagePath' => '/var/log/nadi',
 
-    // Transporter
-    'transporter' => 'file', // 'file' or 'http'
-
-    // HTTP transporter settings
-    'endpoint' => 'https://nadi.pro/api/',
-    'timeout' => 5,
+    // HTTP transporter settings (only needed with 'http' transporter)
+    // 'transporter' => 'http',
+    // 'apiKey' => getenv('NADI_API_KEY'),
+    // 'appKey' => getenv('NADI_APP_KEY'),
+    // 'endpoint' => 'https://nadi.pro/api/',
+    // 'timeout' => 5,
 
     // Sampling
     'samplingRate' => 1.0,
@@ -96,16 +95,22 @@ $client = new Client([
 ]);
 ```
 
+::: tip Credentials in nadi.yaml
+API credentials (`apiKey` and `appKey`) are configured in `nadi.yaml` for the Shipper agent, not in your application code. See [Shipper Configuration](/shipper/configuration) for details.
+:::
+
 ### Environment Variables
 
 | Variable | Description | Default |
 |----------|-------------|---------|
-| `NADI_API_KEY` | Your API key | - |
-| `NADI_APP_KEY` | Your application key | - |
 | `NADI_ENVIRONMENT` | Environment name | `production` |
 | `NADI_STORAGE_PATH` | Log directory | `/var/log/nadi` |
 | `NADI_TRANSPORTER` | Transport method | `file` |
 | `NADI_SAMPLING_RATE` | Sampling rate (0-1) | `1.0` |
+
+::: info HTTP Transporter Only
+`NADI_API_KEY` and `NADI_APP_KEY` environment variables are only needed when using the `http` transporter. For the recommended `file` transporter, credentials are configured in `nadi.yaml` for the Shipper agent.
+:::
 
 ## Basic Usage
 
@@ -254,8 +259,8 @@ require_once 'vendor/autoload.php';
 use Nadi\Client;
 
 $nadi = new Client([
-    'apiKey' => getenv('NADI_API_KEY'),
-    'appKey' => getenv('NADI_APP_KEY'),
+    'transporter' => 'file',
+    'storagePath' => '/var/log/nadi',
 ]);
 
 $nadi->registerHandlers();
