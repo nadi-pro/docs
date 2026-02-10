@@ -101,6 +101,16 @@ Set up Supervisord to run the shipper as a background process.
 
 Create a supervisor config file:
 
+::: tip Supervisor Config Path
+The supervisor config path and file extension vary by OS:
+
+| OS | Path | Extension |
+|----|------|-----------|
+| Ubuntu / Debian | `/etc/supervisor/conf.d/` | `.conf` |
+| AlmaLinux / CentOS / RHEL / Fedora | `/etc/supervisord.d/` | `.ini` |
+| macOS (Homebrew) | `/opt/homebrew/etc/supervisor.d/` | `.conf` |
+:::
+
 ```bash
 sudo nano /etc/supervisor/conf.d/nadi-shipper.conf
 ```
@@ -122,6 +132,13 @@ stdout_logfile_maxbytes=10MB
 stdout_logfile_backups=3
 stopwaitsecs=3600
 ```
+
+::: warning Naming Convention
+Use **kebab-case** for both the config filename and program name. Avoid repeated dashes.
+
+**Good**: `nadi-shipper-my-app.conf`, `[program:nadi-shipper-my-app]`
+**Bad**: `nadi-shipper--my-app.conf`, `[program:nadi-shipper--my-app]`
+:::
 
 Apply the configuration:
 

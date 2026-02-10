@@ -12,7 +12,7 @@ After installation, the configuration file is located at `config/nadi.php`.
 | ------------------------ | -------------------- | ---------------------- |
 | `NADI_ENABLED`           | Enable/disable Nadi  | `true`                 |
 | `NADI_DRIVER`            | Transport driver     | `log`                  |
-| `NADI_ENDPOINT`          | API endpoint         | `https://api.nadi.pro` |
+| `NADI_ENDPOINT`          | API endpoint         | `https://nadi.pro/api/` |
 | `NADI_STORAGE_PATH`      | Log file directory   | `storage/nadi`         |
 | `NADI_SAMPLING_STRATEGY` | Sampling strategy    | `fixed_rate`           |
 | `NADI_SAMPLING_RATE`     | Fixed sampling rate  | `0.1`                  |
@@ -38,7 +38,7 @@ Sends data directly to the Nadi API over HTTP. This is an alternative to the rec
 NADI_DRIVER=http
 NADI_API_KEY=your-sanctum-token
 NADI_APP_KEY=your-application-key
-NADI_ENDPOINT=https://api.nadi.pro
+NADI_ENDPOINT=https://nadi.pro/api/
 ```
 
 ::: warning HTTP Driver Only
@@ -90,7 +90,7 @@ return [
         'http' => [
             'apiKey' => env('NADI_API_KEY'),
             'appKey' => env('NADI_APP_KEY'),
-            'endpoint' => env('NADI_ENDPOINT', 'https://api.nadi.pro'),
+            'endpoint' => env('NADI_ENDPOINT', 'https://nadi.pro/api/'),
             'version' => env('NADI_API_VERSION', 'v1'),
         ],
         'opentelemetry' => [
@@ -184,10 +184,20 @@ If you skipped credentials during installation, update `storage/nadi/nadi.yaml`:
 
 ```yaml
 nadi:
-  endpoint: https://api.nadi.pro
+  # Nadi API Endpoint
+  endpoint: https://nadi.pro/api/
+
+  # Your Nadi API key
   apiKey: your-api-key-here
+
+  # Your application key
   appKey: your-app-key-here
+
+  # Path to the log directory (must match SDK's storage_path)
   storage: /path/to/project/storage/nadi
+
+  # Tracker file for tracking sent logs
+  trackerFile: tracker.json
 ```
 
 ### Shipper Options

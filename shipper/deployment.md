@@ -70,6 +70,16 @@ sudo systemctl stop shipper
 
 ### Configuration
 
+::: tip Supervisor Config Path
+The supervisor config path and file extension vary by OS:
+
+| OS | Path | Extension |
+|----|------|-----------|
+| Ubuntu / Debian | `/etc/supervisor/conf.d/` | `.conf` |
+| AlmaLinux / CentOS / RHEL / Fedora | `/etc/supervisord.d/` | `.ini` |
+| macOS (Homebrew) | `/opt/homebrew/etc/supervisor.d/` | `.conf` |
+:::
+
 Create `/etc/supervisor/conf.d/shipper.conf`:
 
 ```ini
@@ -83,6 +93,13 @@ user=shipper
 numprocs=1
 process_name=%(program_name)s_%(process_num)s
 ```
+
+::: warning Naming Convention
+Use **kebab-case** for both the config filename and program name. Avoid repeated dashes.
+
+**Good**: `nadi-shipper-my-app.conf`, `[program:nadi-shipper-my-app]`
+**Bad**: `nadi-shipper--my-app.conf`, `[program:nadi-shipper--my-app]`
+:::
 
 ### Multiple Applications
 
